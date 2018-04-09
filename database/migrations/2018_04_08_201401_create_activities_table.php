@@ -18,6 +18,8 @@ class CreateActivitiesTable extends Migration
             $table->text('name');
             $table->text('image');
             $table->text('description');
+            $table->text('recurrence');
+            $table->text('status');
             $table->date('date_add');
             $table->float('price');
             $table->integer('month_activity');

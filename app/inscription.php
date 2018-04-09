@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class activitie extends Model
+class inscription extends Model
 {
     use Notifiable;
 
@@ -15,6 +15,6 @@ class activitie extends Model
      * @var array
      */
     protected $fillable = [
-        'name','image','description', 'date_add', 'price','month_activity', 'recurrence','status'
+       'date','activity', 'user'
     ];
 }
