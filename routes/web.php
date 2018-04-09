@@ -20,4 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile/{id}','ProfileController@index');
+Route::get('/profile','ProfileController@UserConnected');
 Route::get('/manif/{id}','ManifestationsController@index');
