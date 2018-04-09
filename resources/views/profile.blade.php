@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="text-align: center">
-                        <img src={{ $user->image}} ><br>
+                       <img src={{ $user->image}} ><br>
                         Profile de {{ $user->firstname }} {{ $user->lastname }}
                     </div>
 
