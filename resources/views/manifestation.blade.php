@@ -7,12 +7,13 @@
                 <div class="card">
                     <div class="card-header" style="text-align: center">
                         <img src={{ $manif->image}} ><br>
-                        {{ $manif->name }} | {{ $manif->date_add }}
+                        {{ $manif->name }} | {{ $manif->status }}  : {{ $manif->date_add }}
                     </div>
 
                     <div class="card-body">
                         Nom : {{ $manif->name }}<br>
                         Description : {{ $manif->description }} <br>
+                        Reccurence : {{ $manif->recurrence }} <br>
                         Prix : {{$manif->price}} €
                     </div>
                 </div>

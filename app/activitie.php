@@ -15,6 +15,6 @@ class activitie extends Model
      * @var array
      */
     protected $fillable = [
-        'name','image','description', 'date_add', 'price','month_activity'
+        'name','image','description', 'date_add', 'price','month_activity', 'recurrence','status'
     ];
 }
