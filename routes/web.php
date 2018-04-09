@@ -23,3 +23,4 @@ Route::get('/profile/{id}','ProfileController@index');
 Route::post('/manif/{id}/register','ManifestationsController@registration')->name('register');
 Route::get('/profile','ProfileController@UserConnected');
 Route::get('/manif/{id}','ManifestationsController@index')->name('manif');
+Route::get('/manif','ManifestationsController@allManif')->name('manifs');

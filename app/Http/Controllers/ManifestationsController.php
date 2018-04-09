@@ -36,7 +36,11 @@ class ManifestationsController extends Controller
         else{
             return view('manifestation', compact('manif'), ['buttonStyle'=>'btn btn-success', 'buttonText'=>"Déjà inscris !"]);
         }
-        //return view('manifestation', compact('manif'));
+    }
+    function allManif(){
+        $manifs = activitie::all();
+            return view('manifestations', compact('manifs'));
+
     }
 
     function registration($id){
@@ -51,7 +55,7 @@ class ManifestationsController extends Controller
         else{
 
         }
-        
+
         return redirect()->route('manif', ['id' => $id]);
     }
 
