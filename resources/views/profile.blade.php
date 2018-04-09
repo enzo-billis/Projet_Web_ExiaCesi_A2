@@ -5,7 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Profile de {{ $user->firstname }} {{ $user->lastname }}</div>
+                    <div class="card-header" style="text-align: center">
+                        <img src={{ $user->image}} ><br>
+                        Profile de {{ $user->firstname }} {{ $user->lastname }}
+                    </div>
 
                     <div class="card-body">
                         Nom : {{ $user->lastname }}<br>
