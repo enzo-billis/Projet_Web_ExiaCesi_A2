@@ -12,13 +12,14 @@ class IdeasTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
+        for ($i = 0; $i < 30; $i++) {
+            DB::table('ideas')->insert([
+                'name' => $faker->domainWord,
+                'description' => $faker->text,
+                'image' => $faker->imageUrl(480, 640),
+                'user' => $faker->numberBetween(1, 50),
 
-        DB::table('ideas')->insert([
-            'name' => $faker->domainWord,
-            'description' => $faker->text,
-            'image' => $faker->imageUrl(480,640),
-            'user' => $faker->numberBetween(1,50),
-
-        ]);
+            ]);
+        }
     }
 }

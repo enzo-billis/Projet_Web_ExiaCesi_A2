@@ -12,11 +12,12 @@ class InscriptionsTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-
-        DB::table('inscriptions')->insert([
-            'date' => $faker->date('Y-m-d'),
-            'activity' => $faker->numberBetween(1,50),
-            'user' => $faker->numberBetween(1,50),
-        ]);
+        for ($i = 0; $i < 200; $i++) {
+            DB::table('inscriptions')->insert([
+                'date' => $faker->date('Y-m-d'),
+                'activity' => $faker->numberBetween(1, 50),
+                'user' => $faker->numberBetween(1, 50),
+            ]);
+        }
     }
 }

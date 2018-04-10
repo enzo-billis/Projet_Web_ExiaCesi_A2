@@ -12,12 +12,13 @@ class VotesTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-
-        DB::table('votes')->insert([
-            'date_vote' => $faker->date('Y-m-d'),
-            'idea' => $faker->numberBetween(1,50),
-            'user' => $faker->numberBetween(1,50),
-            'vote' => $faker->numberBetween(0,1),
-        ]);
+        for ($i = 0; $i < 200; $i++) {
+            DB::table('votes')->insert([
+                'date_vote' => $faker->date('Y-m-d'),
+                'idea' => $faker->numberBetween(1, 50),
+                'user' => $faker->numberBetween(1, 50),
+                'vote' => $faker->numberBetween(0, 1),
+            ]);
+        }
     }
 }
