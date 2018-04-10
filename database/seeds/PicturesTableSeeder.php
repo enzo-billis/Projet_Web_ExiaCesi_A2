@@ -12,14 +12,15 @@ class PicturesTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
+        for ($i = 0; $i < 20; $i++) {
+            DB::table('pictures')->insert([
 
-        DB::table('pictures')->insert([
+                'picture' => $faker->imageUrl(640, 480),
 
-            'picture' => $faker->imageUrl(640,480),
-
-            'date_image' => $faker->date('Y-m-d'),
-            'id_users' => $faker->numberBetween(1,50),
-            'id_event' => $faker->numberBetween(1,50),
-        ]);
+                'date_image' => $faker->date('Y-m-d'),
+                'id_users' => $faker->numberBetween(1, 50),
+                'id_event' => $faker->numberBetween(1, 50),
+            ]);
+        }
     }
 }
