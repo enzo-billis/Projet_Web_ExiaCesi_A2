@@ -2,7 +2,7 @@
 
 @section('js')
     <script type="text/javascript">
-        
+
     </script>
 @endsection
 
@@ -15,7 +15,7 @@
                     <option>Tout</option>
                     <option>A venir</option>
                     <option>Passés</option>
-                    <option>Annulés</option>
+                    <option>Du mois</option>
                 </select>
             </div>
         </div>
