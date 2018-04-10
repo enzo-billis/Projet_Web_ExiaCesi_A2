@@ -14,7 +14,8 @@ class ManifestationsController extends Controller
     }
 
     function checkIfRegister($user,$manif){
-        if(inscription::where(['activity' => $manif, 'user' => $user])->first()){
+        $inscriptions = New inscription();
+        if($inscriptions->where(['activity' => $manif, 'user' => $user])->first()){
             return true;
         }
         else{
@@ -51,11 +52,63 @@ class ManifestationsController extends Controller
         }
 
     }
+
+//    function APIManifsFiltered($param){
+//
+//        $activities = New activitie();
+//
+//        switch ($param){
+//
+//            case 0:
+//                //A venir
+//                $manifs = $activities->where('date_add','>',date("Y-m-d"))->get();
+//                break;
+//            case 1:
+//                //En cours
+//                $manifs = $activities->where('date_add','=',date("Y-m-d"))->get();
+//                break;
+//            case 2:
+//                //Passé
+//                $manifs = $activities->where('date_add','<',date("Y-m-d"))->get();
+//                break;
+//            case 3:
+//                //Annulé
+//                $manifs = $activities->where('status','=',3)->get();
+//                break;
+//            case 4:
+//                //Du mois
+//                $manifs = $activities->where('date_add','>=',date("Y-m-01"))->where('date_add','<=',date("Y-m-t"))->get();
+//                break;
+//            default :
+//                $manifs = $activities->all();
+//        }
+//
+//        //return view('manifestations', compact('manifs'));
+//        return response()->json($manifs);
+//
+//    }
+
     function allManif(){
         $manifs = activitie::all();
-            return view('manifestations', compact('manifs'));
+        return view('manifestations', compact('manifs'));
 
     }
+    function APIManifFiltered($param){
 
+        $activities = New activitie();
 
+        $manif = $activities->where('id','=',$param)->get();
+
+        return response()->json($manif);
+
+    }
+    function APIManifs(){
+
+        $activities = New activitie();
+
+        $manifs = $activities->all();
+
+        return response()->json($manifs);
+
+    }
 }
