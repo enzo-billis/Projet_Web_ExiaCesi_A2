@@ -26,7 +26,4 @@ Route::post('/manif/{id}/register','InscriptionController@registration')->name('
 Route::get('/profile','ProfileController@UserConnected');
 Route::get('/manif/{id}','ManifestationsController@index')->name('manif');
 Route::get('/manif','ManifestationsController@allManif')->name('manifs');
-Route::get('/manif/filter/{type}','ManifestationsController@ManifsFiltered');
-Route::get('/manif/filter', function () {
-    return view('welcome');
-});
+
