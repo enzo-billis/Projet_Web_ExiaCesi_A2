@@ -34,6 +34,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('home') }}">{{ __('Idées') }}</a></li>
+                        @else
+                            <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('home') }}">{{ __('Idées') }}</a></li>
+                        @endguest
 
                     </ul>
 
