@@ -56,6 +56,25 @@ class ManifestationsController extends Controller
             return view('manifestations', compact('manifs'));
 
     }
+    function ManifsFiltered($status){
+        if ($status == 5){
+            $manifs = activitie::where('date_add','>=',date("Y-m-01"))->where('date_add','<=',date("Y-m-t"))->get();
+        }
+        else if ($status == 4){
+            $manifs = activitie::all();
+        }
+        else if ($status == 0){
+            $manifs = activitie::where('date_add','<',date("Y-m-d"))->get();
+        }
+        else if ($status == 1){
+            $manifs = activitie::where('date_add','>',date("Y-m-d"))->get();
+        }
+        else {
+            $manifs = activitie::where(['status' => $status])->get();
+        }
+        return view('manifestations', compact('manifs'));
+
+    }
 
 
 }
