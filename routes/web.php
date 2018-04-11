@@ -21,9 +21,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Route for profile
 Route::get('/profile/{id}','ProfileController@index');
-Route::post('/manif/{id}/register','InscriptionController@registration')->name('registerManif');
 Route::get('/profile','ProfileController@UserConnected');
+
+//Route for manifestations
 Route::get('/manif/{id}','ManifestationsController@index')->name('manif');
 Route::get('/manif','ManifestationsController@allManif')->name('manifs');
+Route::post('/manif/{id}/register','InscriptionController@registration')->name('registerManif');
 
+//Route for ideas
+Route::get('/ideas/{id}','IdeaController@index')->name('idea');
+Route::get('/ideas','IdeaController@allIdeas')->name('ideas');
+Route::post('/ideas/{id}/plus','VoteController@changeVoteUp')->name('VoteUp');
+Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown');

@@ -36,10 +36,10 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('home') }}">{{ __('Idées') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
                         @else
                             <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('home') }}">{{ __('Idées') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
                         @endguest
 
                     </ul>
