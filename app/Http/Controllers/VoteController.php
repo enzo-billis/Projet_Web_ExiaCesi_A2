@@ -10,6 +10,11 @@ use App\User;
 
 class VoteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getVotesUp', 'getVotesDown', 'checkIfAlreadyVote']]);
+    }
+
      public static function getVotesUp($id){
         $votes = New Vote();
         $upVote = $votes->where('vote',"=","1")->where('idea',"=",$id)->count();

@@ -43,7 +43,8 @@ class IdeaController extends Controller
             }
         }
         else{
-
+            $buttonStyleUp = "btn btn-light";
+            $buttonStyleDown = "btn btn-light";
         }
 
         return view('idea', compact('idea'),
