@@ -16,7 +16,7 @@ class IdeasTableSeeder extends Seeder
             DB::table('ideas')->insert([
                 'name' => $faker->domainWord,
                 'description' => $faker->text,
-                'image' => $faker->imageUrl(480, 640),
+                'image' => $faker->imageUrl(400, 280),
                 'user' => $faker->numberBetween(1, 50),
 
             ]);
