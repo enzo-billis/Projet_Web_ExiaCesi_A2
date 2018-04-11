@@ -55,4 +55,10 @@ class IdeaController extends Controller
                 'buttonStyleDown' => $buttonStyleDown,
             ]);
     }
+
+    function allIdeas(){
+        $ideas = Idea::all();
+        return view('ideas',compact('ideas'));
+
+    }
 }
