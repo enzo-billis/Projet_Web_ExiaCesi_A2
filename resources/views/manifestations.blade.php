@@ -39,6 +39,7 @@
             firstDate = fDate.toISOString().substring(0, 10);
             lDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
             lastDate = lDate.toISOString().substring(0, 10);
+
             for (var i in responses){
                 switch (filterValue) {
                     case "0" :
