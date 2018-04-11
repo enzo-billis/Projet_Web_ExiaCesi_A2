@@ -9,14 +9,16 @@
                         <img src={{$idea->image}} ><br>
                         {{ $idea->name }} | Par : {{ $firstname }} {{ $lastname }}<br>
                         Pour : {{ $upVotes }} | Contre : {{ $downVotes }}<br><br>
-                        <form method="post" action="{{ route('VoteUp',$idea->id) }}">
+                        <div >
+                        <form style="display: inline-block" method="post" action="{{ route('VoteUp',$idea->id) }}">
                             {{csrf_field()}}
                             <button type="submit" class="{{$buttonStyleUp}}">+1</button>
                         </form>
-                        <form method="post" action="{{ route('VoteDown',$idea->id) }}">
+                        <form style="display: inline-block" method="post" action="{{ route('VoteDown',$idea->id) }}">
                             {{csrf_field()}}
                             <button type="submit" class="{{$buttonStyleDown}}">-1</button>
                         </form>
+                        </div>
                     </div>
 
                     <div class="card-body">
