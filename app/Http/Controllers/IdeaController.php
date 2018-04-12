@@ -32,7 +32,7 @@ class IdeaController extends Controller
             elseif(VoteController::checkIfAlreadyVote(Auth::user()->id,$id)!==false){
                 if (VoteController::checkIfAlreadyVote(Auth::user()->id,$id) == -1){
                     $buttonStyleUp = "btn btn-light";
-                    $buttonStyleDown = "btn btn-primary";
+                    $buttonStyleDown = "btn btn-danger";
 
                 }
                 else{
