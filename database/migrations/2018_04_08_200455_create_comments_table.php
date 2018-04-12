@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->integer('id_pictures');
             $table->integer('id_users');
-            $table->text('comment');
+            $table->string('comment')->default("Dead Beef");
             $table->date('date_comment');
             $table->timestamps();
         });
