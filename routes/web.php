@@ -35,3 +35,6 @@ Route::get('/ideas/{id}','IdeaController@index')->name('idea');
 Route::get('/ideas','IdeaController@allIdeas')->name('ideas');
 Route::post('/ideas/{id}/plus','VoteController@changeVoteUp')->name('VoteUp');
 Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown');
+
+//Route for pictures
+Route::get("/picture/{id}",'PictureController@index')->name('picture');
