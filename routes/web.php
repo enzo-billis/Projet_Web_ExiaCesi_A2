@@ -34,3 +34,7 @@ Route::post('/manif/{id}/register','InscriptionController@registration')->name('
 Route::get('/ideas/{id}','IdeaController@index')->name('idea');
 Route::post('/ideas/{id}/plus','VoteController@changeVoteUp')->name('VoteUp');
 Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown');
+
+//Route for produits
+Route::get('/shop','catalogController@showCatalog')->name('shopList');
+Route::post("/shop/add",'catalogController@addProduct')->name('newProduct');
