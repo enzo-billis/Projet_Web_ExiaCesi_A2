@@ -11,6 +11,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class PictureController extends Controller
 {
@@ -59,8 +60,18 @@ class PictureController extends Controller
 
     }
 
-    public function comment($id){
+    public function comment($id, Request $request){
+
         $content = Input::get('comment');
+
+        $validator = Validator::make($request->all(),[
+            'comment' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         CommentController::addComment($content,$id);
         return redirect()->back();
     }

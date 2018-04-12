@@ -104,6 +104,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'comment' => [
+            'required' => 'Mince ! On dirais que vous avez oublié décrire.',
+        ],
     ],
 
     /*
