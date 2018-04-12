@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class activitie extends Model
+class Picture extends Model
 {
     use Notifiable;
 
@@ -15,10 +15,10 @@ class activitie extends Model
      * @var array
      */
     protected $fillable = [
-        'name','image','description', 'date_add', 'price','month_activity', 'recurrence','status'
+        'picture','date_image','id_users','id_event',
     ];
 
-    public function picture(){
-        return $this->hasMany('App\Picture');
+    public function activite(){
+        return $this->belongsTo('App\activitie','id_event');
     }
 }

@@ -17,7 +17,7 @@ class IdeasTableSeeder extends Seeder
                 'name' => $faker->domainWord,
                 'description' => $faker->text,
                 'image' => $faker->imageUrl(400, 280),
-                'user' => $faker->numberBetween(1, 50),
+                'user' => $faker->numberBetween(1, 15),
 
             ]);
         }

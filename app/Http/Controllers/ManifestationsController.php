@@ -6,6 +6,7 @@ use App\activitie;
 use App\inscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PictureController;
 
 class ManifestationsController extends Controller
 {
@@ -25,7 +26,10 @@ class ManifestationsController extends Controller
 
     function index($id)
     {
+        $pictureController = New PictureController();
         $manif = activitie::findOrFail($id);
+        $pictures = $pictureController->getPictures($id);
+
         switch ($manif->status) {
             case 0:
                 $manif->status = "A venir";
@@ -42,12 +46,12 @@ class ManifestationsController extends Controller
         }
         if (isset(Auth::user()->id)) {
             if (!$this->checkIfRegister(Auth::user()->id, $id)) {
-                return view('manifestation', compact('manif'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire"]);
+                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures)]);
             } else {
-                return view('manifestation', compact('manif'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire"]);
+                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures)]);
             }
         } else {
-            return view('manifestation', compact('manif'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !"]);
+            return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !", 'numberPicture' => count($pictures)]);
         }
 
     }
