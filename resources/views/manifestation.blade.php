@@ -40,11 +40,11 @@
                                @foreach($pictures as $picture)
                                    @if($loop->first)
                                        <div class="carousel-item active">
-                                           <img src={{$picture->picture}}>
+                                           <a href="{{route('picture',$picture->id)}}"> <img src={{$picture->picture}}></a>
                                        </div>
                                    @else
                                        <div class="carousel-item">
-                                           <img src={{$picture->picture}}>
+                                           <a href="{{route('picture',$picture->id)}}"> <img src={{$picture->picture}}></a>
                                        </div>
                                    @endif
                                @endforeach
@@ -58,9 +58,8 @@
                            </a>
                        </div>
                     </div>
-                    <div class="card-body">
-                        Image envoyée par : {{$pictures[1]->id_users}}<br>
-                        Date : {{ $pictures[1]->date_image }}
+                    <div style="text-align: center" class="card-body">
+                        Cliquez sur la photo pour voir les commentaires.
                     </div>
                     @else
                         <p>Aucune photo !</p>
