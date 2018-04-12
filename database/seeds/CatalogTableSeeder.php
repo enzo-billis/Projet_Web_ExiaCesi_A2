@@ -14,7 +14,7 @@ class CatalogTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
 
-        DB::table('catalog')->insert([
+        DB::table('catalogs')->insert([
             'name' => $faker->domainWord,
             'description' => $faker->text,
             'image' => $faker->imageUrl(480,640),
