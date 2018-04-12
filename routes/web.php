@@ -28,15 +28,15 @@ Route::get('/profile','ProfileController@UserConnected');
 //Route for manifestations
 Route::get('/manif/{id}','ManifestationsController@index')->name('manif');
 Route::get('/manif','ManifestationsController@allManif')->name('manifs');
-Route::post('/manif/{id}/register','InscriptionController@registration')->name('registerManif');
+Route::post('/manif/{id}/register','InscriptionController@registration')->name('registerManif')->middleware('auth');
 
 //Route for ideas
 Route::get('/ideas/{id}','IdeaController@index')->name('idea');
 Route::get('/ideas','IdeaController@allIdeas')->name('ideas');
-Route::post('/ideas/{id}/plus','VoteController@changeVoteUp')->name('VoteUp');
-Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown');
+Route::post('/ideas/{id}/plus','VoteController@changeVoteUp')->name('VoteUp')->middleware('auth');
+Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown')->middleware('auth');
 
 //Route for pictures
 Route::get("/picture/{id}",'PictureController@index')->name('picture');
-Route::post("/picture/{id}/like",'PictureController@like')->name('likePic');
-Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic');
+Route::post("/picture/{id}/like",'PictureController@like')->name('likePic')->middleware('auth');
+Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic')->middleware('auth');
