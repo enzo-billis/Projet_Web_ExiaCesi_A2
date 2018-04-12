@@ -30,21 +30,6 @@ class ManifestationsController extends Controller
         $manif = activitie::findOrFail($id);
         $pictures = $pictureController->getPictures($id);
 
-//        switch ($manif->date_add) {
-//            case 0:
-//                $manif->status = "A venir";
-//                break;
-//            case 1:
-//                $manif->status = "En cours";
-//                break;
-//            case 2:
-//                $manif->status = "Passé";
-//                break;
-//            case 3:
-//                $manif->status = "Annulé";
-//                break;
-//        }
-
         if ($manif->date_add > date('Y-m-d')){
             $manif->status = "A venir";
         }
