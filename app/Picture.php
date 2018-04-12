@@ -17,4 +17,8 @@ class Picture extends Model
     protected $fillable = [
         'picture','date_image','id_users','id_event',
     ];
+
+    public function activite(){
+        return $this->belongsTo('App\activitie','id_event');
+    }
 }

@@ -17,4 +17,8 @@ class activitie extends Model
     protected $fillable = [
         'name','image','description', 'date_add', 'price','month_activity', 'recurrence','status'
     ];
+
+    public function picture(){
+        return $this->hasMany('App\Picture');
+    }
 }

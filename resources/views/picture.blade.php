@@ -7,6 +7,7 @@
                 <div class="card">
                     <div class="card-header" style="text-align: center">
                         <img src={{$picture->picture}} ><br>
+                        [{{$picture->activite->name}}]<br>
                         Par : {{ $user->firstname }} {{ $user->lastname }} | {{$picture->date_image}}<br>
                         @if(count($likes)<=1)
                             {{count($likes)}} Like
