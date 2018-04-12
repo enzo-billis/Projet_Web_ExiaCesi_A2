@@ -58,7 +58,7 @@ class IdeaController extends Controller
     }
 
     function allIdeas(){
-        $ideas = Idea::all()->sortBy('created_at');
+        $ideas = Idea::all()->sortByDesc('created_at');
         return view('ideas',compact('ideas'));
 
     }
