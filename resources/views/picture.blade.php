@@ -20,6 +20,26 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="card" style="margin-top : 2vh">
+
+                        <div class="card-header">
+                           Laisser un commentaire :
+                        </div>
+                        <div class="card-body">
+
+                            <form id="formComment" method="post" action="{{ route('likePic',$picture->id) }}">
+                                <div style="text-align: right">
+                                    {{csrf_field()}}
+                                    <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer" style="text-align: right">
+                            <button type="submit" form="formComment" class="btn btn-primary"><i aria-hidden="true"></i> Publier</button></form>
+                        </div>
+                </div>
+
                 <div class="card" style="margin-top : 2vh">
                     @foreach($comments as $comment)
                         <div class="card-header">

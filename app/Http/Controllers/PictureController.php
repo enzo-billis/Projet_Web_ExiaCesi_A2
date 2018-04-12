@@ -10,6 +10,7 @@ use App\Picture;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Input;
 
 class PictureController extends Controller
 {
@@ -56,5 +57,11 @@ class PictureController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function comment($id){
+        $content = Input::get('comment');
+        CommentController::addComment($content,$id);
+        return redirect()->back();
     }
 }
