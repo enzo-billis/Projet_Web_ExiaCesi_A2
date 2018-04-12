@@ -38,3 +38,4 @@ Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown
 
 //Route for pictures
 Route::get("/picture/{id}",'PictureController@index')->name('picture');
+Route::post("/picture/{id}/like",'PictureController@like')->name('likePic');
