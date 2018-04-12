@@ -11,6 +11,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PictureController extends Controller
@@ -73,6 +74,27 @@ class PictureController extends Controller
         }
 
         CommentController::addComment($content,$id);
+        return redirect()->back();
+    }
+
+    public function savePic($id, Request $request){
+
+        $validator = Validator::make($request->all(),[
+                'photo' => 'required|max:5000',
+            ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $path = $request->file('photo')->store('manifestationPics');
+
+        $pictObj = New Picture();
+        $pictObj::create([
+            'picture' => $path,
+            'date_image' => date('Y-m-d'),
+            'id_users' => Auth::user()->id,
+            'id_event' => $id,
+        ]);
         return redirect()->back();
     }
 }

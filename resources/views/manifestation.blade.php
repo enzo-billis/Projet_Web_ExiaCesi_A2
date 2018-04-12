@@ -5,13 +5,36 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card-header" style="text-align: center">
+
                         <img src={{ $manif->image}} ><br>
+
                         {{ $manif->name }} | {{ $manif->status }}  : {{ $manif->date_add }}<br>
-                        <form method="post" action="{{route('registerManif', $manif->id)}}">
-                            {{csrf_field()}}
-                            <button type="submit" class="{{$buttonStyle}}">{{$buttonText}}</button>
-                        </form>
+                        @if(!isset($modal))
+                            <form method="post" action="{{$route}}">
+
+                                {{csrf_field()}}
+
+                                <button type="submit" class="{{$buttonStyle}}" >
+                                    {{$buttonText}}
+                                </button>
+
+                            </form>
+                        @else
+                            <button type="submit" class="{{$buttonStyle}}" data-toggle="modal" data-target="#uploadPictures" >
+                                {{$buttonText}}
+                            </button>
+                        @endif
+
                     </div>
 
                     <div class="card-body">
@@ -23,6 +46,7 @@
                 </div>
             </div>
         </div>
+
         <div style="padding-top: 3vh" class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -40,11 +64,11 @@
                                @foreach($pictures as $picture)
                                    @if($loop->first)
                                        <div class="carousel-item active">
-                                           <a href="{{route('picture',$picture->id)}}"> <img src={{$picture->picture}}></a>
+                                           <a href="{{route('picture',$picture->id)}}"> <img src="/storage/{{$picture->picture}}"></a>
                                        </div>
                                    @else
                                        <div class="carousel-item">
-                                           <a href="{{route('picture',$picture->id)}}"> <img src={{$picture->picture}}></a>
+                                           <a href="{{route('picture',$picture->id)}}"> <img src="/storage/{{$picture->picture}}"></a>
                                        </div>
                                    @endif
                                @endforeach
@@ -68,4 +92,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="uploadPictures" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Partagez vos photos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{route('savePic',$manif->id)}}" enctype="multipart/form-data">
+
+                        {{csrf_field()}}
+                        <label for="exampleFormControlFile1">Photo(s) : </label>
+                        <input type="file" accept="image/*" class="form-control-file" id="file" name="photo"><br>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Partager</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
 @endsection
