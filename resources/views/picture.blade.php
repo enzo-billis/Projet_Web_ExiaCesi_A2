@@ -27,11 +27,19 @@
                            Laisser un commentaire :
                         </div>
                         <div class="card-body">
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form id="formComment" method="post" action="{{ route('commentPic',$picture->id) }}">
                                 <div style="text-align: right">
                                     {{csrf_field()}}
-                                    <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+                                    <textarea class="form-control form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" rows="3" name="comment" id="comment"></textarea>
                                 </div>
                             </form>
                         </div>

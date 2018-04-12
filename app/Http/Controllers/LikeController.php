@@ -15,11 +15,13 @@ class LikeController extends Controller
     }
 
     public static function checkIfLike($id_pic){
-        $like = New Like();
-        $likeValue = $like->where('id_pictures','=',$id_pic)->where('id_users','=',Auth::user()->id)->get();
-        if (!$likeValue->isEmpty()){
-            return true;
+        if (isset(Auth::user()->id)){
+            $like = New Like();
+            $likeValue = $like->where('id_pictures','=',$id_pic)->where('id_users','=',Auth::user()->id)->get();
+            if (!$likeValue->isEmpty()){
+                return true;
 
+            }
         }
         else{
             return false;
