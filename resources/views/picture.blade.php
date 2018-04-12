@@ -28,7 +28,7 @@
                         </div>
                         <div class="card-body">
 
-                            <form id="formComment" method="post" action="{{ route('likePic',$picture->id) }}">
+                            <form id="formComment" method="post" action="{{ route('commentPic',$picture->id) }}">
                                 <div style="text-align: right">
                                     {{csrf_field()}}
                                     <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>

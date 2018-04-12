@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     public function getComments($id_picture){
         $commentsObj = New Comment;
-        $comments = $commentsObj->where('id_pictures','=', $id_picture)->get();
+        $comments = $commentsObj->where('id_pictures','=', $id_picture)->orderBy('date_comment','desc')->get();
         return $comments;
     }
 
