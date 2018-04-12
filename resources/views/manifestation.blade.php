@@ -23,5 +23,50 @@
                 </div>
             </div>
         </div>
+        <div style="padding-top: 3vh" class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" style="text-align: center">
+                        @if(!$pictures->isEmpty())
+                       <div id="pictures" class="carousel slide" data-ride="carousel">
+                           <ul class="carousel-indicators">
+                                   <li data-target="#pictures" data-slide-to="0" class="active"></li>
+                               @for($i = 1; $i < $numberPicture; $i++)
+                                   <li data-target="#pictures" data-slide-to="{{$i}}"></li>
+                               @endfor
+                           </ul>
+
+                           <div class="carousel-inner">
+                               @foreach($pictures as $picture)
+                                   @if($loop->first)
+                                       <div class="carousel-item active">
+                                           <img src={{$picture->picture}}>
+                                       </div>
+                                   @else
+                                       <div class="carousel-item">
+                                           <img src={{$picture->picture}}>
+                                       </div>
+                                   @endif
+                               @endforeach
+                           </div>
+
+                           <a class="carousel-control-prev" href="#pictures" data-slide="prev">
+                               <span class="carousel-control-prev-icon"></span>
+                           </a>
+                           <a class="carousel-control-next" href="#pictures" data-slide="next">
+                               <span class="carousel-control-next-icon"></span>
+                           </a>
+                       </div>
+                    </div>
+                    <div class="card-body">
+                        Image envoyée par : {{$pictures[1]->id_users}}<br>
+                        Date : {{ $pictures[1]->date_image }}
+                    </div>
+                    @else
+                        <p>Aucune photo !</p>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
