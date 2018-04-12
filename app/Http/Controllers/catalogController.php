@@ -37,12 +37,17 @@ class catalogController extends Controller
             echo "product already exists";
         }
     }
+    function editProduct($oldName, $name, $description, $price, $image, $category)
     {
+        catalog::findOrFail($oldName)->update(['name'=>$name,'description'=>$description,'price'=>$price,'image'=>$image,'category',$category]);
     }
     function removeProduct($name)
     {
+       catalog::findOrFail($name)->delete();
     }
     function showCatalog() {
+        $catalog = catalog::all();
+        return view('shop', compact('catalog'));
     }
     function APICatalog() {
         $catalog = New catalog();
