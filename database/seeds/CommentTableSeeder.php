@@ -13,9 +13,9 @@ class CommentTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         for ($i = 0; $i < 200; $i++) {
-            DB::table('comment')->insert([
+            DB::table('comments')->insert([
                 'id_pictures' => $faker->numberBetween(1, 50),
-                'id_users' => $faker->numberBetween(1, 50),
+                'id_users' => $faker->numberBetween(1, 20),
                 'comment' => $faker->text,
                 'date_comment' => $faker->date('Y-m-d'),
             ]);
