@@ -79,7 +79,8 @@ class ManifestationsController extends Controller
     }
 
     function allManif(){
-        $manifs = activitie::all();
+        $manifObj = new activitie();
+        $manifs = $manifObj->latest('created_at')->get();
         return view('manifestations', compact('manifs'));
 
     }
@@ -94,9 +95,8 @@ class ManifestationsController extends Controller
     }
     function APIManifs(){
 
-        $activities = New activitie();
-
-        $manifs = $activities->all();
+        $manifObj = new activitie();
+        $manifs = $manifObj->latest('created_at')->get();
 
         return response()->json($manifs);
 
