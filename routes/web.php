@@ -37,4 +37,7 @@ Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown
 
 //Route for produits
 Route::get('/shop','catalogController@showCatalog')->name('shopList');
-Route::post("/shop/add",'catalogController@addProduct')->name('newProduct');
+Route::get("/shop/add",'catalogController@addProduct')->name('newProduct');
+Route::post('/shop/add/{name,description,image,price','catalogController@PostAddProduct')->name('PostNewProduct');
+Route::post("/shop/modify/{id}",'catalogController@editProduct')->name('AltProduct');
+Route::post("/shop/rem/{id}","catalogController@removeProduct")->name("delProduct");
