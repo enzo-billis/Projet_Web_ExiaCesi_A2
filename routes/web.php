@@ -11,11 +11,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Redirect;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('welcome');});
 
 Auth::routes();
 
@@ -43,7 +39,7 @@ Route::post("/picture/{id}/like",'PictureController@like')->name('likePic')->mid
 Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic')->middleware('auth');
 //Route for produits
 Route::get('/shop','catalogController@showCatalog')->name('shopList');
-Route::get("/shop/add",'catalogController@addProduct')->name('newProduct');
-Route::post('/shop/add/{name,description,image,price','catalogController@PostAddProduct')->name('PostNewProduct');
-Route::post("/shop/modify/{id}",'catalogController@editProduct')->name('AltProduct');
-Route::post("/shop/rem/{id}","catalogController@removeProduct")->name("delProduct");
+Route::get('/shop/add','catalogController@addProduct')->name('newProduct');
+Route::post('/shop/post','catalogController@PostAddProduct')->name('PostProduct');
+Route::get("/shop/modify/{name}",'catalogController@editProduct')->name('AltProduct');
+Route::get("/shop/rem/{name}","catalogController@removeProduct")->name("delProduct");

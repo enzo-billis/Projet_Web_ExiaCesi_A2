@@ -1,91 +1,24 @@
-@extends('layout.app)
+@extends('layouts.app')
 
 @section('content')
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Inscription') }}</div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('PostNewProduct') }}">
-                            @csrf
-
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Prénom') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                    @if ($errors->has('firstname'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('firstname') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <textarea id="descritpion" class="form-control{{ $error->has('description') ? 'is-invalid' : '' }}" name="description" value="{{old('description')}}"
-                                    @if ($errors->has('lastname'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('lastname') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                    @if ($errors->has('email'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmation du mot de passe') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __("S'enregistrer") }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <div class="col-md- offset-1" id="1">
+        <div class="card">
+            <div class="card-header">nouveau produits</div>
+            <div class="card-body">
+                <form action="{{route('PostProduct')}}" method="post">
+                    @csrf
+                    <label for="name" id="lname" class="form-control">Name <input id="name" type="text" name="name"></label><br>
+                    <label for="price" id="lprice" class="form-control">price<input id="price" type="number" name="price" min="0.01" max="999.99" step="0.01"></label><br>
+                    <label for="description" id="ldescription" class="form-control">description<textarea id="description" name="description"></textarea></label><br>
+                    <label for="category" id="lcategory" class="form-control">category<select name='category' id='category'>
+                        <option value='1'>1-Cloths</option>
+                        <option value='2'>2-Goodies</option>
+                        <option value='3'>3-Miscellaneous</option>
+                        </select></label><br>
+                    <input type="file" id="image" name="image" class="form-control">
+                    <input id="submit" type="submit">
+                </form>
             </div>
         </div>
     </div>
-    </form>
+@endsection
