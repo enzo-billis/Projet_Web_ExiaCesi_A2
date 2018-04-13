@@ -66,7 +66,8 @@ class ManifestationsController extends Controller
                     $inscrits=$manif->users;
                     return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
                 } else {
-                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
+                    $inscrits=$manif->users;
+                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
                 }
             }
 
