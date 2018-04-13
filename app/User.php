@@ -30,5 +30,8 @@ class User extends Authenticatable
     public function comment(){
         return $this->hasMany('App\Comment');
     }
+    public function inscription(){
+        return $this->belongsToMany('App\activitie','inscriptions','user','activity')->as('inscription')->withPivot('date');
+    }
 
 }
