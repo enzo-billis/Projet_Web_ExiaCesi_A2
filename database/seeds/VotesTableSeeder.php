@@ -17,7 +17,7 @@ class VotesTableSeeder extends Seeder
                 'date_vote' => $faker->date('Y-m-d'),
                 'idea' => $faker->numberBetween(1, 50),
                 'user' => $faker->numberBetween(1, 50),
-                'vote' => $faker->numberBetween(0, 1),
+                'vote' => $faker->randomElement(array(-1,1)),
             ]);
         }
     }

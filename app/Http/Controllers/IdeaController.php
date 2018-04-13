@@ -32,7 +32,7 @@ class IdeaController extends Controller
             elseif(VoteController::checkIfAlreadyVote(Auth::user()->id,$id)!==false){
                 if (VoteController::checkIfAlreadyVote(Auth::user()->id,$id) == -1){
                     $buttonStyleUp = "btn btn-light";
-                    $buttonStyleDown = "btn btn-primary";
+                    $buttonStyleDown = "btn btn-danger";
 
                 }
                 else{
@@ -43,7 +43,8 @@ class IdeaController extends Controller
             }
         }
         else{
-
+            $buttonStyleUp = "btn btn-light";
+            $buttonStyleDown = "btn btn-light";
         }
 
         return view('idea', compact('idea'),
@@ -54,5 +55,11 @@ class IdeaController extends Controller
                 'buttonStyleUp' => $buttonStyleUp,
                 'buttonStyleDown' => $buttonStyleDown,
             ]);
+    }
+
+    function allIdeas(){
+        $ideas = Idea::all()->sortByDesc('created_at');
+        return view('ideas',compact('ideas'));
+
     }
 }

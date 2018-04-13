@@ -6,6 +6,7 @@ use App\activitie;
 use App\inscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PictureController;
 
 class ManifestationsController extends Controller
 {
@@ -25,29 +26,47 @@ class ManifestationsController extends Controller
 
     function index($id)
     {
+        $pictureController = New PictureController();
         $manif = activitie::findOrFail($id);
-        switch ($manif->status) {
-            case 0:
-                $manif->status = "A venir";
-                break;
-            case 1:
-                $manif->status = "En cours";
-                break;
-            case 2:
-                $manif->status = "Passé";
-                break;
-            case 3:
-                $manif->status = "Annulé";
-                break;
+        $pictures = $pictureController->getPictures($id);
+
+        if ($manif->status == 3){
+            $manif->status = "Annulé";
+            $manif->date_add = "2099-12-30";
         }
+
+        if ($manif->date_add > date('Y-m-d') && $manif->date_add!=="2099-12-30"){
+            $manif->status = "A venir";
+        }
+        if ($manif->date_add < date('Y-m-d')){
+            $manif->status = "Passé";
+
+        }
+        if ($manif->date_add == date('Y-m-d')){
+            $manif->status = "En cours";
+        }
+
+
+
         if (isset(Auth::user()->id)) {
-            if (!$this->checkIfRegister(Auth::user()->id, $id)) {
-                return view('manifestation', compact('manif'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire"]);
-            } else {
-                return view('manifestation', compact('manif'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire"]);
+            if ($manif->status === "Passé"){
+                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal'=>true]);
+
             }
-        } else {
-            return view('manifestation', compact('manif'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !"]);
+            if ($manif->status === "Annulé"){
+                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Annulé", 'numberPicture' => count($pictures), 'route' => "/home"]);
+            }
+            else{
+                if (!$this->checkIfRegister(Auth::user()->id, $id)) {
+                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id)]);
+                } else {
+                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
+                }
+            }
+
+            }
+        else {
+            return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !", 'numberPicture' => count($pictures), 'route' => route('login')]);
         }
 
     }

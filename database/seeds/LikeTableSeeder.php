@@ -13,7 +13,7 @@ class LikeTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         for ($i = 0; $i < 300; $i++) {
-            DB::table('like')->insert([
+            DB::table('likes')->insert([
 
                 'date_like' => $faker->date('Y-m-d'),
                 'id_users' => $faker->numberBetween(1, 50),
