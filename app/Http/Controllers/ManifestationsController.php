@@ -7,6 +7,10 @@ use App\inscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PictureController;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Image;
 
 class ManifestationsController extends Controller
 {
@@ -50,7 +54,8 @@ class ManifestationsController extends Controller
 
         if (isset(Auth::user()->id)) {
             if ($manif->status === "Passé"){
-                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal'=>true]);
+
+                return view('manifestation', compact('manif','pictures','inscrits'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal'=>true]);
 
             }
             if ($manif->status === "Annulé"){
@@ -58,7 +63,8 @@ class ManifestationsController extends Controller
             }
             else{
                 if (!$this->checkIfRegister(Auth::user()->id, $id)) {
-                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id)]);
+                    $inscrits=$manif->users;
+                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
                 } else {
                     return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
                 }
@@ -92,6 +98,49 @@ class ManifestationsController extends Controller
         $manifs = $activities->all();
 
         return response()->json($manifs);
+
+    }
+
+    function newManif(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:5000',
+            'description' => 'required|string|max:5000',
+            'photo' => 'required|max:5000',
+            'recurrence' => 'required|string|max:5000',
+            'date' => 'required',
+            'price' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $image = $request->file('photo');
+        $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+        $path = "storage/manifestationCoverPics/". $filename;
+        $pathToDb = "manifestationCoverPics/". $filename;
+
+
+        Image::make($image->getRealPath())->fit(400, 280)->save($path);
+
+
+//        $path = $request->file('photo')->store('/public/manifestationPics');
+//        $path = substr($path,7);
+
+        $manifObj = New activitie();
+        $manifObj::create([
+            'name' => $request->input('name'),
+            'image' => $pathToDb,
+            'description' => $request->input('description'),
+            'status' => 0,
+            'recurrence' => $request->input('recurrence'),
+            'date_add' => $request->input('date'),
+            'month_activity' => 0,
+            'price' => $request->input('price'),
+        ]);
+
+        return redirect()->back()->with('success', ['Bravo ! ']);
 
     }
 }

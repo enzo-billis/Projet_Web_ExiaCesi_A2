@@ -17,7 +17,7 @@ class CreateIdeasTable extends Migration
             $table->increments('id');
             $table->text('name');
             $table->text('description');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->integer('user');
             $table->timestamps();
         });

@@ -1,5 +1,7 @@
 <?php
 
+use App\activitie;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class InscriptionsTableSeeder extends Seeder
@@ -13,11 +15,10 @@ class InscriptionsTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         for ($i = 0; $i < 200; $i++) {
-            DB::table('inscriptions')->insert([
-                'date' => $faker->date('Y-m-d'),
-                'activity' => $faker->numberBetween(1, 50),
-                'user' => $faker->numberBetween(1, 50),
-            ]);
+           $user = User::findOrFail($faker->numberBetween(1,30));
+           $activity = activitie::findOrFail($faker->numberBetween(1,30));
+
+           $user->inscription()->attach($activity , ['date' => $faker->date('Y-m-d')]);
         }
     }
 }

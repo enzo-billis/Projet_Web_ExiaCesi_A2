@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 
 class inscription extends Model
 {
+    public $timestamps = false;
     use Notifiable;
 
     /**
