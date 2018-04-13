@@ -104,28 +104,55 @@ class ManifestationsController extends Controller
 
     function newManif(Request $request){
 
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:5000',
-            'description' => 'required|string|max:5000',
-            'photo' => 'required|max:5000',
-            'recurrence' => 'required|string|max:5000',
-            'date' => 'required',
-            'price' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if ($request->input('vote')) {
+            if($request->input('vote')==="yes"){
+                $validator = Validator::make($request->all(),[
+                    'name' => 'required|string|max:5000',
+                    'description' => 'required|string|max:5000',
+                    'photo' => 'required|max:5000',
+                    'recurrence' => 'required|string|max:5000',
+                    'date' => 'required',
+                    'price' => 'required',
+                ]);
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+
+                $image = $request->file('photo');
+                $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+                $path = "storage/manifestationCoverPics/". $filename;
+                $pathToDb = "manifestationCoverPics/". $filename;
+
+
+                Image::make($image->getRealPath())->fit(400, 280)->save($path);
+            }
+            else{
+                $pathToDb = $request->input('oldPhoto');
+            }
         }
+        else{
+            $validator = Validator::make($request->all(),[
+                'name' => 'required|string|max:5000',
+                'description' => 'required|string|max:5000',
+                'photo' => 'required|max:5000',
+                'recurrence' => 'required|string|max:5000',
+                'date' => 'required',
+                'price' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
-        $image = $request->file('photo');
-        $filename  = time() . '.' . $image->getClientOriginalExtension();
+            $image = $request->file('photo');
+            $filename  = time() . '.' . $image->getClientOriginalExtension();
 
-        $path = "storage/manifestationCoverPics/". $filename;
-        $pathToDb = "manifestationCoverPics/". $filename;
-
-
-        Image::make($image->getRealPath())->fit(400, 280)->save($path);
+            $path = "storage/manifestationCoverPics/". $filename;
+            $pathToDb = "manifestationCoverPics/". $filename;
 
 
+            Image::make($image->getRealPath())->fit(400, 280)->save($path);
+        }
 //        $path = $request->file('photo')->store('/public/manifestationPics');
 //        $path = substr($path,7);
 
