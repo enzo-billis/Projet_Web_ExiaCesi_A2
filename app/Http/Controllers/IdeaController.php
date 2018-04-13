@@ -9,11 +9,56 @@ use App\Idea;
 use App\User;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class IdeaController extends Controller
 {
     public function __construct()
     {
+    }
+
+    function newIdea(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:5000',
+            'description' => 'required|string|max:5000',
+            'photo' => 'max:5000',
+        ]);
+        if ($validator->fails()) {
+//            dd($request);
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if($request->file('photo')){
+            $image = $request->file('photo');
+            $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+            $path = "storage/manifestationCoverPics/". $filename;
+            $pathToDb = "manifestationCoverPics/". $filename;
+
+
+            Image::make($image->getRealPath())->fit(400, 280)->save($path);
+        }
+        else{
+            $path = "storage/manifestationCoverPics/default.jpg";
+            $pathToDb = "manifestationCoverPics/default.jpg";
+            Image::make("https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/68dd54ca-60cf-4ef7-898b-26d7cbe48ec7/10-dithering-opt.jpg")->fit(400, 280)->save($path);
+        }
+
+
+
+//        $path = $request->file('photo')->store('/public/manifestationPics');
+//        $path = substr($path,7);
+
+        $ideaObj = New Idea();
+        $ideaObj::create([
+            'name' => $request->input('name'),
+            'image' => $pathToDb,
+            'description' => $request->input('description'),
+            'user' => Auth::user()->id,
+        ]);
+
+        return redirect()->back()->with('success', ['Bravo ! ']);
     }
 
     function index($id)

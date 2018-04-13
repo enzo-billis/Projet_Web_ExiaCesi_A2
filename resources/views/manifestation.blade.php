@@ -16,7 +16,7 @@
                     @endif
                     <div class="card-header" style="text-align: center">
 
-                        <img src={{ $manif->image}} ><br>
+                        <img src="/storage/{{ $manif->image}}" ><br>
 
                         {{ $manif->name }} | {{ $manif->status }}  : {{ $manif->date_add }}<br>
                         @if(!isset($modal))

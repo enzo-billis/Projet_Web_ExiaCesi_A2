@@ -13,6 +13,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Image;
+//use Intervention\Image\Image;
+
 
 class PictureController extends Controller
 {
@@ -79,6 +82,8 @@ class PictureController extends Controller
 
     public function savePic($id, Request $request){
 
+
+
         $validator = Validator::make($request->all(),[
                 'photo' => 'required|max:5000',
             ]);
@@ -86,15 +91,28 @@ class PictureController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $path = $request->file('photo')->store('manifestationPics');
+
+        $image = $request->file('photo');
+        $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+        $path = "storage/manifestationPics/". $filename;
+        $pathToDb = "manifestationPics/". $filename;
+
+
+        Image::make($image->getRealPath())->fit(640, 480)->save($path);
+
+
+//        $path = $request->file('photo')->store('/public/manifestationPics');
+//        $path = substr($path,7);
 
         $pictObj = New Picture();
         $pictObj::create([
-            'picture' => $path,
+            'picture' => $pathToDb,
             'date_image' => date('Y-m-d'),
             'id_users' => Auth::user()->id,
             'id_event' => $id,
         ]);
+
         return redirect()->back();
     }
 }
