@@ -34,10 +34,12 @@
                                 {{$buttonText}}
                             </button>
                         @endif
+                        @if(isset(Auth::user()->id))
                         @if(isset($inscrits) && Auth::user()->rang >0)
                         <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#tablInscrits" >
                                 Voir les inscrits
                             </button>
+                        @endif
                         @endif
 
                     </div>
