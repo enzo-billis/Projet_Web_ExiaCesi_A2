@@ -82,6 +82,8 @@ class PictureController extends Controller
 
     public function savePic($id, Request $request){
 
+
+
         $validator = Validator::make($request->all(),[
                 'photo' => 'required|max:5000',
             ]);
