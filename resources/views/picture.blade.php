@@ -66,9 +66,11 @@
                                 </div>
                             @if(Auth::user()->rang >= 1)
                                 <div style="float: right">
-
-                                   <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#censureCom" data-id="{{$comment->id}}"><i class="fa fa-trash" aria-hidden="true" ></i></button>
-
+                                    <form method="post" action="{{route('deleteCom')}}" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <input type="hidden" id="idCom" name="idCom" value="{{$comment->id}}">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i></button>
+                                    </form>
                                 </div>
                             @endif
                         </div>
@@ -76,36 +78,6 @@
 
                             {{$comment->comment}}
                         </div>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="censureCom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Supprimer le commentaire</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action="{{route('deleteCom')}}" enctype="multipart/form-data">
-
-                                                {{csrf_field()}}
-
-                                                <input type="hidden" name="idPic" value="{{$comment->id}}">
-
-                                                <p>Etes-vous sûr de vouloir supprimer ce commentaire ? Ceci est irréversible.</p>
-
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <button type="submit" class="btn btn-primary">Supprimer</button>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal -->
-
                     @endforeach
                 </div>
             </div>
