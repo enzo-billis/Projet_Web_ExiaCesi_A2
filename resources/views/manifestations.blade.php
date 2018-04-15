@@ -120,7 +120,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
@@ -138,7 +138,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
@@ -157,7 +157,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
@@ -175,7 +175,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+

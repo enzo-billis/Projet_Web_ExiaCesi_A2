@@ -21,7 +21,7 @@
                                 <button type="submit" class="{{$btnStyle}}"><i class="{{$iconeStyle}}" aria-hidden="true"></i> {{$textValue}}</button>
                             </div>
                             </form>
-                            @if(Auth::user()->rang >= 1)
+                            @if(isset(Auth::user()->rang) && Auth::user()->rang >= 1)
                             <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#censurePic"><i class="fa fa-trash" aria-hidden="true" ></i></button>
                                 @endif
                         </div>
@@ -64,7 +64,7 @@
                                 <div style="float: left;">
                                     {{$comment->date_comment}} | {{$comment->user->firstname}} {{$comment->user->lastname}} dit :
                                 </div>
-                            @if(Auth::user()->rang >= 1)
+                            @if(isset(Auth::user()->rang) && Auth::user()->rang >= 1)
                                 <div style="float: right">
                                     <form method="post" action="{{route('deleteCom')}}" enctype="multipart/form-data">
                                         {{csrf_field()}}

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Comment;
-use Illuminate\Support\Facades\Validator;
-use App\Censorship;
 
 class CommentController extends Controller
 {
@@ -26,7 +24,6 @@ class CommentController extends Controller
             'comment'=>$content,
             'date_comment' => $mytime,
         ]);
-        redirect()->back();
     }
 
     public function delete(Request $request){

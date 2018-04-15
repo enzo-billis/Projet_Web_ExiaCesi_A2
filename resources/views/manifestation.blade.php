@@ -41,6 +41,19 @@
                                 {{$buttonText}}
                             </button>
                         @endif
+
+                        @if($manif->status==="Passé" && isset(Auth::user()->rang) && Auth::user()->rang >1)
+                            <form method="post" action="{{route('downloadPack')}}" enctype="multipart/form-data">
+
+                                {{csrf_field()}}
+
+                                <input type="hidden" value={{$manif->id}} id="idManif" name="idManif">
+                                <input type="hidden" value="{{$manif->name}}" id="name" name="name">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i>Pack photos</button>
+
+                            </form>
+                            @endif
+
                         @if(isset(Auth::user()->id))
                         @if(isset($inscrits) && Auth::user()->rang >0)
                         <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#tablInscrits" >
