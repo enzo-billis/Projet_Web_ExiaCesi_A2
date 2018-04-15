@@ -30,12 +30,14 @@
                     <option value="3">Du mois</option>
                 </select>
             </div>
+            @if(isset(Auth::user()->id))
             @if(Auth::user()->rang>0)
                 <div class="col-2 offset-7">
                     <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#addActivitie" >
                         Ajouter une activité
                     </button>
                 </div>
+            @endif
             @endif
         </div>
         <div id="container" class="row">

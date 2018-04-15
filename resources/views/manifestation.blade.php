@@ -34,10 +34,12 @@
                                 {{$buttonText}}
                             </button>
                         @endif
+                        @if(isset(Auth::user()->id))
                         @if(isset($inscrits) && Auth::user()->rang >0)
                         <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#tablInscrits" >
                                 Voir les inscrits
                             </button>
+                        @endif
                         @endif
 
                     </div>
@@ -126,36 +128,48 @@
     <!-- Modal -->
 @if(isset($inscrits))
     <!-- Modal -->
-    <div class="modal fade" id="tablInscrits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Liste des inscrits</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-hover table-dark">
-                        <thead>
-                        <tr>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Prénom</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($inscrits as $inscrit)
-                        <tr>
-                            <td>{{$inscrit->lastname}}</td>
-                            <td>{{$inscrit->firstname}}</td>
-                        </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+    <div  class="modal fade" id="tablInscrits" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div  class="modal-dialog" role="document">
+            <div id='tableRegister' class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Liste des inscrits - {{$manif->name}} - {{$manif->date_add}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div style="text-align: center" class="modal-body">
+                        <table  class="table table-hover table-dark">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($inscrits as $inscrit)
+                            <tr>
+                                <td>{{$inscrit->lastname}}</td>
+                                <td>{{$inscrit->firstname}}</td>
+                            </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <button onclick="print()" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-print" aria-hidden="true"></i> Télécharger</button>
+                    </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
     @endif
 @endsection
+
+<script type="text/javascript">
+    function print()
+    {
+        var divToPrint=document.getElementById("tableRegister");
+        newWin= window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+</script>
