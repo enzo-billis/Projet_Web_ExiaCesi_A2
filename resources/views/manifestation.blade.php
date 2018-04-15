@@ -14,6 +14,13 @@
                             </ul>
                         </div>
                     @endif
+                        @if (\Session::has('success'))
+                            <div class="alert alert-success">
+                                <ul>
+                                    <li>Activité bien ajoutée !</li>
+                                </ul>
+                            </div>
+                        @endif
                     <div class="card-header" style="text-align: center">
 
                         <img src="/storage/{{ $manif->image}}" ><br>

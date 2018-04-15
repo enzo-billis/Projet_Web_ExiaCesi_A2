@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Like;
 use App\User;
 use Auth;
@@ -114,5 +115,12 @@ class PictureController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function delete(Request $request){
+        Picture::findOrFail($request->input('idPic'))->delete();
+        $CommentObj = New Comment();
+        $CommentObj->where('id_pictures',"=",$request->input('idPic'))->delete();
+        return redirect()->route('manifs');
     }
 }

@@ -3,22 +3,7 @@
 @section('content')
 
     <div class="container">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-            @if (\Session::has('success'))
-                <div class="alert alert-success">
-                    <ul>
-                        <li>Activité bien ajoutée !</li>
-                    </ul>
-                </div>
-            @endif
+
         <div class="row justify-content-ml-center">
 
             <div class="col-2" class="form-group">
