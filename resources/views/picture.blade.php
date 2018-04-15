@@ -13,7 +13,7 @@
                         Par : {{ $user->firstname }} {{ $user->lastname }} | {{$picture->date_image}}<br>
                         {{count($likes)}} <i class="fa fa-heart" aria-hidden="true"></i> - {{count($comments)}} <i class="fa fa-comments" aria-hidden="true"></i>
                         <br>
-                        <div style="display: flex;">
+                        <div style="display: flex; float: right">
 
                             <form method="post" action="{{ route('likePic',$picture->id) }}">
                             <div style="text-align: right; margin-right: 1em">
