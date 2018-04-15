@@ -53,6 +53,8 @@
                         {{csrf_field()}}
 
                         <input type="hidden" name="oldPhoto" value="{{$idea->image}}">
+                        <input type="hidden" name="id" value="{{$idea->id}}">
+                        <input type="hidden" name="author" value="{{$idea->user}}">
 
                         <div class="form-group">
                             <label for="exampleFormControlFile1">Nom : </label>

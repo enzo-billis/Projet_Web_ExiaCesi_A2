@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\activitie;
+use App\Idea;
+use App\Manifestation;
 use App\inscription;
+use App\Notifications\IdeaSelected;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PictureController;
@@ -105,6 +109,9 @@ class ManifestationsController extends Controller
     function newManif(Request $request){
 
         if ($request->input('vote')) {
+
+
+
             if($request->input('vote')==="yes"){
                 $validator = Validator::make($request->all(),[
                     'name' => 'required|string|max:5000',
@@ -130,7 +137,15 @@ class ManifestationsController extends Controller
             else{
                 $pathToDb = $request->input('oldPhoto');
             }
+
+
+
+            $idea = Idea::find($request->input('id'));
+            $idea->delete();
+            User::find($request->input('author'))->notify(new IdeaSelected($idea));
+
         }
+
         else{
             $validator = Validator::make($request->all(),[
                 'name' => 'required|string|max:5000',
@@ -168,7 +183,8 @@ class ManifestationsController extends Controller
             'price' => $request->input('price'),
         ]);
 
-        return redirect()->back()->with('success', ['Bravo ! ']);
+        $idLast=$manifObj->orderBy('created_at','desc')->first();
+        return redirect()->route('manif',$idLast->id);
 
     }
 }

@@ -6,19 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Idea;
+use App\User;
 
 class IdeaSelected extends Notification
 {
     use Queueable;
-
+    public $idea;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Idea $idea)
     {
-        //
+        $this->idea = $idea;
     }
 
     /**
@@ -29,7 +31,7 @@ class IdeaSelected extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -38,12 +40,11 @@ class IdeaSelected extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toDatabase($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return [
+            'idea' => $this->idea,
+        ];
     }
 
     /**
@@ -52,10 +53,4 @@ class IdeaSelected extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             $this->call(IdeasTableSeeder::class);
             $this->call(InscriptionsTableSeeder::class);
             $this->call(LikeTableSeeder::class);
-            $this->call(NotificationTableSeeder::class);
+//            $this->call(NotificationTableSeeder::class);
             $this->call(PicturesTableSeeder::class);
             $this->call(PublishActivitiesTableSeeder::class);
             $this->call(VotesTableSeeder::class);

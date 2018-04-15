@@ -44,3 +44,7 @@ Route::post('/ideas/new','IdeaController@newIdea')->name('newIdea')->middleware(
 Route::get("/picture/{id}",'PictureController@index')->name('picture');
 Route::post("/picture/{id}/like",'PictureController@like')->name('likePic')->middleware('auth');
 Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic')->middleware('auth');
+
+//Route for notif
+Route::post('/notification/get','NotificationsController@get');
+Route::post('/notification/read','NotificationsController@read')->middleware('auth');
