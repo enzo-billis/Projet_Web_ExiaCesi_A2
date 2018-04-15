@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             <i class="fa fa-bell-o" aria-hidden="true"></i>  Notifications <span id='badge' class="badge badge-info">{{notifications.length}}</span> <span class="caret"></span>
          </a>
 
