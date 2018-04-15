@@ -52343,7 +52343,34 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "nav-item dropdown" }, [
-    _vm._m(0),
+    _c(
+      "a",
+      {
+        staticClass: "nav-link dropdown-toggle",
+        attrs: {
+          id: "navbarDropdown",
+          href: "#",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-bell-o",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v("  Notifications "),
+        _c(
+          "span",
+          { staticClass: "badge badge-info", attrs: { id: "badge" } },
+          [_vm._v(_vm._s(_vm.notifications.length))]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "caret" })
+      ]
+    ),
     _vm._v(" "),
     _c(
       "ul",
@@ -52383,37 +52410,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        pre: true,
-        attrs: {
-          id: "navbarDropdown",
-          class: "nav-link dropdown-toggle",
-          href: "#",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _c("i", { attrs: { class: "fa fa-bell-o", "aria-hidden": "true" } }),
-        _vm._v("  Notifications "),
-        _c("span", { attrs: { id: "badge", class: "badge badge-info" } }, [
-          _vm._v("{{notifications.length}}")
-        ]),
-        _vm._v(" "),
-        _c("span", { attrs: { class: "caret" } })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

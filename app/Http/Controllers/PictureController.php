@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Like;
 use App\User;
 use Auth;
+use Hamcrest\Core\IsNull;
 use Illuminate\Http\Request;
 use App\Picture;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Image;
+use ZipArchive;
+
 //use Intervention\Image\Image;
 
 
@@ -76,8 +82,10 @@ class PictureController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+
         CommentController::addComment($content,$id);
-        return redirect()->back();
+        return Response::download('storage/manifestationCoverPics/1523820280.jpg');
+//        return redirect()->back();
     }
 
     public function savePic($id, Request $request){
@@ -114,5 +122,44 @@ class PictureController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function delete(Request $request){
+        Picture::findOrFail($request->input('idPic'))->delete();
+        $CommentObj = New Comment();
+        $CommentObj->where('id_pictures',"=",$request->input('idPic'))->delete();
+        return redirect()->route('manifs');
+    }
+
+    public function downloadZip(Request $request){
+
+        $pictureObj = new Picture();
+
+        $pictures = $pictureObj->where('id_event','=',$request->input('idManif'))->get();
+
+        if(isset($pictures->first()->id)){
+
+        $zip = new ZipArchive();
+        $filename = date('Y-m-d-H-m-s')."-".$request->input('name').".zip";
+
+        if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+            exit("Impossible d'ouvrir le fichier <$filename>\n");
+        }
+
+        $i=1;
+        foreach ($pictures as $picture){
+            $i++;
+            $zip->addFile("storage/".$picture->picture);
+//            dd($zip->addFile("storage/".$picture->picture));
+        }
+
+        echo "Statut :" . $zip->status . "\n";
+
+        $zip->close();
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+        }
+
+        return Redirect::back()->withErrors(['Aucune photo !']);
     }
 }

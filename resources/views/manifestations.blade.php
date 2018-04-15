@@ -3,22 +3,7 @@
 @section('content')
 
     <div class="container">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-            @if (\Session::has('success'))
-                <div class="alert alert-success">
-                    <ul>
-                        <li>Activité bien ajoutée !</li>
-                    </ul>
-                </div>
-            @endif
+
         <div class="row justify-content-ml-center">
 
             <div class="col-2" class="form-group">
@@ -135,7 +120,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
@@ -153,7 +138,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
@@ -172,7 +157,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
@@ -190,7 +175,7 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+

@@ -32,6 +32,7 @@ Route::get('/manif','ManifestationsController@allManif')->name('manifs');
 Route::post('/manif/{id}/register','InscriptionController@registration')->name('registerManif')->middleware('auth');
 Route::post("/manif/{id}/upload",'PictureController@savePic')->name('savePic')->middleware('auth');
 Route::post("/manif/new",'ManifestationsController@newManif')->name('newManif')->middleware('bde');
+Route::post("/manif/download",'PictureController@downloadZip')->name('downloadPack')->middleware('employee');
 
 //Route for ideas
 Route::get('/ideas/{id}','IdeaController@index')->name('idea');
@@ -44,6 +45,8 @@ Route::post('/ideas/new','IdeaController@newIdea')->name('newIdea')->middleware(
 Route::get("/picture/{id}",'PictureController@index')->name('picture');
 Route::post("/picture/{id}/like",'PictureController@like')->name('likePic')->middleware('auth');
 Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic')->middleware('auth');
+Route::post("/deleteCom",'CommentController@delete')->name('deleteCom')->middleware('auth');
+Route::post("/deletePic",'PictureController@delete')->name('deletePic')->middleware('auth');
 
 //Route for notif
 Route::post('/notification/get','NotificationsController@get');
