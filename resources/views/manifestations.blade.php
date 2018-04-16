@@ -116,12 +116,12 @@
             for (var i in responses){
                 switch (filterValue) {
                     case "0" :
-                        var image = "storage/"+responses[i].image;
+                        var image = responses[i].image;
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src=/"+image+"><br>"+
+                                "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Like;
+use App\Notifications\PictureSignaled;
 use App\User;
 use Auth;
 use Hamcrest\Core\IsNull;
@@ -36,15 +37,20 @@ class PictureController extends Controller
 
 
         $picture = Picture::findOrFail($id);
-        $comments = $CommentCtl->getComments($id);
+        if($picture->ban_reason == null ){
+            $comments = $CommentCtl->getComments($id);
 
-        $likes = $LikeCtl->getLikes($id);
-        $user = User::findOrFail($picture->id_users);
-        if (LikeController::checkIfLike($id)==false){
-            return view('picture',compact('comments','likes'), ['picture'=>$picture,'user'=>$user,'btnStyle'=>'btn btn-primary','iconeStyle'=>'fa fa-thumbs-up fa-x2','textValue'=>'Like',]);
+            $likes = $LikeCtl->getLikes($id);
+            $user = User::findOrFail($picture->id_users);
+            if (LikeController::checkIfLike($id)==false){
+                return view('picture',compact('comments','likes'), ['picture'=>$picture,'user'=>$user,'btnStyle'=>'btn btn-primary','iconeStyle'=>'fa fa-thumbs-up fa-x2','textValue'=>'Like',]);
+            }
+            else{
+                return view('picture',compact('comments','likes'), ['picture'=>$picture,'user'=>$user,'btnStyle'=>'btn btn-danger','iconeStyle'=>'fa fa-thumbs-down fa-x2','textValue'=>'Dislike',]);
+            }
         }
         else{
-            return view('picture',compact('comments','likes'), ['picture'=>$picture,'user'=>$user,'btnStyle'=>'btn btn-danger','iconeStyle'=>'fa fa-thumbs-down fa-x2','textValue'=>'Dislike',]);
+            return redirect()->back();
         }
 
 
@@ -124,10 +130,30 @@ class PictureController extends Controller
     }
 
     public function delete(Request $request){
-        Picture::findOrFail($request->input('idPic'))->delete();
-        $CommentObj = New Comment();
-        $CommentObj->where('id_pictures',"=",$request->input('idPic'))->delete();
-        return redirect()->route('manifs');
+
+        $validator = Validator::make($request->all(),[
+            'reason' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $pictureObj = New Picture();
+        $picture = $pictureObj->where('id','=',$request->input('idPic'))->first();
+        $userObj = New User();
+        $membersBDE = $userObj->where('rang',"=",1)->get();
+
+        $picture->ban_reason = $request->input('reason');
+        $picture->ban_user_id = Auth::user()->id;
+        $picture->save();
+
+
+        foreach ($membersBDE as $memberBDE){
+            $memberBDE->notify(new PictureSignaled($picture));
+        }
+
+        return redirect()->route('home');
     }
 
     public function downloadZip(Request $request){
