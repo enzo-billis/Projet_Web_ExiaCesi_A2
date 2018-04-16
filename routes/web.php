@@ -44,6 +44,7 @@ Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentP
 //Route for produits
 Route::get('/shop','catalogController@showCatalog')->name('shopList');
 Route::get('/shop/add','catalogController@addProduct')->name('newProduct');
-Route::post('/shop/post','catalogController@PostAddProduct')->name('PostProduct');
-Route::get("/shop/modify/{name}",'catalogController@editProduct')->name('AltProduct');
-Route::get("/shop/rem/{name}","catalogController@removeProduct")->name("delProduct");
+Route::post('/shop/post','catalogController@PostAddProduct')->name('PostNewProduct');
+Route::get("/shop/modify/{name}",'catalogController@EditProduct');
+Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('PostAltProduct');
+Route::get("/shop/rem/{name}","catalogController@removeProduct");

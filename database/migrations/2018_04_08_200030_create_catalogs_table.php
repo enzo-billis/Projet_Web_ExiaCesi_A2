@@ -19,7 +19,6 @@ class CreateCatalogsTable extends Migration
             $table->text('description');
             $table->text('image');
             $table->float('price');
-            $table->integer('stock');
             $table->integer('category');
             $table->timestamps();
         });

@@ -29,18 +29,11 @@ class catalogController extends Controller
     }
     function PostAddProduct(Request $request)
     {
-  //      dd($request);
         $name = $request->input('name');
         $description = $request->input('description');
         $price = $request->input('price');
-        $image = function($request) {
-            $this->validate($request, [ 'image' => 'required|image|mimes:jpeg,png,gif,svg|max:1024',]);
-            $imageName = $request->image->getClientOriginalExtention();
-            $request->image->move(public_path('images'),$imageName);
-            return $imageName;
-    };
+        $image = $this->postImage($request, $name);
         $category = $request->input('category');
-
                 catalog::create([
                     'name'=>$name,
                     'description'=>$description,
@@ -48,25 +41,32 @@ class catalogController extends Controller
                     'image'=>$image,
                     'category'=>$category,
                 ]);
-            return $this->showCatalog();
+            return redirect()->route('shopList');
     }
-    function editProduct($id, $name, $description, $price, $image, $category)
+    function EditProduct($name) {
+        $catalogs = new catalog();
+        $catalog = $catalogs->where( 'name', '=', $name);
+        return view('altProduct', compact('catalog'));
+    }
+    function postEditProduct($oldName, $name, $description, $price, $image, $category)
     {
-        catalog::findOrFail($id)->update(['name'=>$name,'description'=>$description,'price'=>$price,'image'=>$image,'category',$category]);
+        catalog::findOrFail($oldName)->update(['name'=>$name,'description'=>$description,'price'=>$price,'image'=>$image,'category',$category]);
         return redirect()->route('shop');
     }
     function removeProduct($name)
     {
-       $deletedProduct = catalog::where(['name' => $name]);
+        $catalogs = new catalog();
+       $deletedProduct = $catalogs->where(['name' => $name]);
        $deletedProduct->delete();
-       return $this->showCatalog();
+       return redirect()->route('shopList');
     }
     function showCatalog() {
-        $catalogs = catalog::all();
-        return view('shop', compact('catalogs'));
+        return view('shop');
     }
     function APIShowByCategory($category){
-
+        $catalogs = new catalog();
+        $shop = $catalogs->where('category','=',$category);
+        return response()->json($shop);
     }
     function APICatalog() {
         $catalog = New catalog();
@@ -76,10 +76,17 @@ class catalogController extends Controller
         return response()->json($shop);
     }
 
-    function postImage($request) {
+
+    function postImage($request, $name) {
         $this->validate($request, [ 'image' => 'required|image|mimes:jpeg,png,gif,svg|max:1024',]);
-        $imageName = $request->image->getClientOriginalExtention();
-        $request->image->move(public_path('images'),$imageName);
+    //    $imageName = $name.'.'.$request->image->getClientOriginalExtention();
+    //    $request->image->move(storage_path('app'),$imageName);
+        $image = $request->image;
+        $imageName = $image->store('catalog');
         return $imageName;
+    }
+    function showImage ($image) {
+        $thisImage = Storage::get($image);
+        return $thisImage;
     }
 }

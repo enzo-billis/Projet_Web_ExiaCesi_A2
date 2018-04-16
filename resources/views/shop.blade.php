@@ -1,25 +1,70 @@
 @extends('layouts.app')
-
 @section('content')
-
+<div class="container">
     <a href="{{route('newProduct')}}">Add product</a>
+    <select id="filterValue" name="filterValue" onchange="filter(this.value)">
+        <option value="0">Tout</option>
+        <option value="1">Vêtements</option>
+        <option value="2">Goodies</option>
+        <option value="3">Divers</option>
+    </select>
+<div id="container" class="col">
 
-    <div id="list" class="row"></div>
-    @foreach($catalogs as $catalog)
-        <div class='col-md- offset-1' id='1'>
-            <div class='card'>
-                <div class='card-header' style='text-align: center'>
-                    <h1>{{$catalog->name}}</h1>
-                    <a href="#">edit</a>
-                    <a href="{{route('delProduct',$catalog->name)}}">remove</a>
-                    <img src="{{$catalog->image}}">
-                </div>
-                <div class="card-body">
-                    <p>{{$catalog->description}}</p>
-                    <p>{{$catalog->price}}</p>
-                </div>
-            </div>
-        </div>
-    @endforeach
-    }}
+    </div>
+</div>
+    <script>
+        let request = new XMLHttpRequest();
+        request.open("GET", "{{route('APICatalog')}}", false)
+        request.send(null);
+        let response = JSON.parse(request.responseText);
+        filter("0");
+
+        function filter(filterValue) {
+        containterE = document.getElementById("container");
+        containterE.innerHTML = "";
+            for (let i in response) {
+            if (filterValue == 0) {
+                let image = "storage/"+response[i].image;
+                let deleteLink = "/shop/modify/"+response[i].name;
+                let altLink = "/shop/rem/"+response[i].name;
+                containterE.innerHTML = containterE.innerHTML +
+                    "<div class='col-md- offset-1' id='1'>" +
+                    "<div class='card'>" +
+                    "<div class='card-header' style='text-align: center'>" +
+                    "<h1>"+ response[i].name +"</h1>" +
+                    "<a href="+ deleteLink +">modifier</a>" + "<br>" +
+                    "<a href="+ altLink +">retirer</a>" +
+                    "<img src="+ image +">" +
+                    "</div>" +
+                    "<div class='card-body'>" +
+                    "<p>"+response[i].description+"</p>" +
+                    "<p>"+response[i].price+"</p>" +
+                    "</div>" +
+                    "</div>"
+            }
+            else {
+                if (response[i].category == filterValue) {
+                    let image = "storage/"+response[i].image;
+                    let deleteLink = "/shop/modify/"+response[i].name;
+                    let altLink = "/shop/rem/"+response[i].name;
+                    containterE.innerHTML = containterE.innerHTML +
+                        "<div class='col-md- offset-1' id='1'>" +
+                        "<div class='card'>" +
+                        "<div class='card-header' style='text-align: center'>" +
+                        "<h1>"+ response[i].name +"</h1>" +
+                        "<a href="+ deleteLink +">modifier</a>" + "<br>" +
+                        "<a href="+ altLink +">retirer</a>" +
+                        "<img src="+ image +">" +
+                        "</div>" +
+                        "<div class='card-body'>" +
+                        "<p>"+response[i].description+"</p>" +
+                        "<p>"+response[i].price+"</p>" +
+                        "</div>" +
+                        "</div>"
+                        "</br>"
+                    }
+                }
+            }
+        }
+    </script>
 @endsection
