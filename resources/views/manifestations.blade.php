@@ -133,7 +133,7 @@
                         break;
                     case "1" :
                         if (responses[i].date_add >= actualDate) {
-                            var image = "storage/"+responses[i].image;
+                            var image = responses[i].image;
 
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
@@ -152,7 +152,7 @@
                         break;
                     case "2" :
                         if (responses[i].date_add < actualDate) {
-                            var image = "storage/"+responses[i].image;
+                            var image = responses[i].image;
 
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
@@ -171,7 +171,7 @@
                         break;
                     case "3" :
                         if (responses[i].date_add >= firstDate && responses[i].date_add <= lastDate) {
-                                var image = "storage/"+responses[i].image;
+                                var image = responses[i].image;
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +

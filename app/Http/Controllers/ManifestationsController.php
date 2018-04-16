@@ -129,7 +129,7 @@ class ManifestationsController extends Controller
                 $filename  = time() . '.' . $image->getClientOriginalExtension();
 
                 $path = "storage/manifestationCoverPics/". $filename;
-                $pathToDb = "manifestationCoverPics/". $filename;
+                $pathToDb = "/storage/manifestationCoverPics/". $filename;
 
 
                 Image::make($image->getRealPath())->fit(400, 280)->save($path);
@@ -163,7 +163,7 @@ class ManifestationsController extends Controller
             $filename  = time() . '.' . $image->getClientOriginalExtension();
 
             $path = "storage/manifestationCoverPics/". $filename;
-            $pathToDb = "manifestationCoverPics/". $filename;
+            $pathToDb = "/storage/manifestationCoverPics/". $filename;
 
 
             Image::make($image->getRealPath())->fit(400, 280)->save($path);

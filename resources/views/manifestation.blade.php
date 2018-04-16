@@ -23,7 +23,7 @@
                         @endif
                     <div class="card-header" style="text-align: center">
 
-                        <img src="/storage/{{ $manif->image}}" ><br>
+                        <img src="{{ $manif->image}}" ><br>
 
                         {{ $manif->name }} | {{ $manif->status }}  : {{ $manif->date_add }}<br>
                         @if(!isset($modal))
@@ -91,11 +91,11 @@
                                @foreach($pictures as $picture)
                                    @if($loop->first)
                                        <div class="carousel-item active">
-                                           <a href="{{route('picture',$picture->id)}}"> <img src="/storage/{{$picture->picture}}"></a>
+                                           <a href="{{route('picture',$picture->id)}}"> <img src="{{$picture->picture}}"></a>
                                        </div>
                                    @else
                                        <div class="carousel-item">
-                                           <a href="{{route('picture',$picture->id)}}"> <img src="/storage/{{$picture->picture}}"></a>
+                                           <a href="{{route('picture',$picture->id)}}"> <img src="{{$picture->picture}}"></a>
                                        </div>
                                    @endif
                                @endforeach

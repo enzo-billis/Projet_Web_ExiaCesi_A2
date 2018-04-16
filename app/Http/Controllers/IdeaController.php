@@ -33,14 +33,14 @@ class IdeaController extends Controller
             $filename  = time() . '.' . $image->getClientOriginalExtension();
 
             $path = "storage/manifestationCoverPics/". $filename;
-            $pathToDb = "manifestationCoverPics/". $filename;
+            $pathToDb = "/storage/manifestationCoverPics/". $filename;
 
 
             Image::make($image->getRealPath())->fit(400, 280)->save($path);
         }
         else{
             $path = "storage/manifestationCoverPics/default.jpg";
-            $pathToDb = "manifestationCoverPics/default.jpg";
+            $pathToDb = "/storage/manifestationCoverPics/default.jpg";
             Image::make("https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/68dd54ca-60cf-4ef7-898b-26d7cbe48ec7/10-dithering-opt.jpg")->fit(400, 280)->save($path);
         }
 
