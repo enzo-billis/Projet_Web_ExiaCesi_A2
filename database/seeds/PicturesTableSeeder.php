@@ -14,10 +14,7 @@ class PicturesTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
         for ($i = 0; $i < 50; $i++) {
             DB::table('pictures')->insert([
-
                 'picture' => $faker->imageUrl(640, 480),
-
-                'date_image' => $faker->date('Y-m-d'),
                 'id_users' => $faker->numberBetween(1, 30),
                 'id_event' => $faker->numberBetween(1, 30),
             ]);

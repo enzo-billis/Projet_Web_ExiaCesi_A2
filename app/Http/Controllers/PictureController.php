@@ -116,7 +116,6 @@ class PictureController extends Controller
         $pictObj = New Picture();
         $pictObj::create([
             'picture' => $pathToDb,
-            'date_image' => date('Y-m-d'),
             'id_users' => Auth::user()->id,
             'id_event' => $id,
         ]);

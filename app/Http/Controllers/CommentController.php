@@ -22,7 +22,6 @@ class CommentController extends Controller
             'id_pictures' => $id_pic,
             'id_users' => Auth::user()->id,
             'comment'=>$content,
-            'date_comment' => $mytime,
         ]);
     }
 
