@@ -90,8 +90,8 @@ class PictureController extends Controller
 
 
         CommentController::addComment($content,$id);
-        return Response::download('storage/manifestationCoverPics/1523820280.jpg');
-//        return redirect()->back();
+
+        return redirect()->back();
     }
 
     public function savePic($id, Request $request){
