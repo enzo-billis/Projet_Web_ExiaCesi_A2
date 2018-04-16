@@ -21,4 +21,8 @@ class activitie extends Model
     public function picture(){
         return $this->hasMany('App\Picture');
     }
+
+    public function users(){
+        return $this->belongsToMany('App\User','inscriptions','activity','user')->as('users')->withPivot('date');
+    }
 }

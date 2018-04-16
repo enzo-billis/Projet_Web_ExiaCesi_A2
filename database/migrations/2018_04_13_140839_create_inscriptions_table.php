@@ -14,11 +14,11 @@ class CreateInscriptionsTable extends Migration
     public function up()
     {
         Schema::create('inscriptions', function (Blueprint $table) {
-            $table->increments('id');
             $table->date('date');
-            $table->integer('activity');
-            $table->integer('user');
-            $table->timestamps();
+            $table->integer('activity')->unsigned()->nullable();
+            $table->integer('user')->unsigned()->nullable();
+            $table->foreign('activity')->references('id')->on('activities');
+            $table->foreign('user')->references('id')->on('users');
         });
     }
 

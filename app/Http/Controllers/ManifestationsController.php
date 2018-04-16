@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\activitie;
+use App\Idea;
+use App\Manifestation;
 use App\inscription;
+use App\Notifications\IdeaSelected;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PictureController;
@@ -54,7 +58,8 @@ class ManifestationsController extends Controller
 
         if (isset(Auth::user()->id)) {
             if ($manif->status === "Passé"){
-                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal'=>true]);
+
+                return view('manifestation', compact('manif','pictures','inscrits'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal'=>true]);
 
             }
             if ($manif->status === "Annulé"){
@@ -62,21 +67,24 @@ class ManifestationsController extends Controller
             }
             else{
                 if (!$this->checkIfRegister(Auth::user()->id, $id)) {
-                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id)]);
+                    $inscrits=$manif->users;
+                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
                 } else {
-                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
+                    $inscrits=$manif->users;
+                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
                 }
             }
 
             }
         else {
-            return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !", 'numberPicture' => count($pictures), 'route' => route('login')]);
+            return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
         }
 
     }
 
     function allManif(){
-        $manifs = activitie::all();
+        $manifObj = new activitie();
+        $manifs = $manifObj->latest('created_at')->get();
         return view('manifestations', compact('manifs'));
 
     }
@@ -91,9 +99,8 @@ class ManifestationsController extends Controller
     }
     function APIManifs(){
 
-        $activities = New activitie();
-
-        $manifs = $activities->all();
+        $manifObj = new activitie();
+        $manifs = $manifObj->latest('created_at')->get();
 
         return response()->json($manifs);
 
@@ -101,28 +108,66 @@ class ManifestationsController extends Controller
 
     function newManif(Request $request){
 
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:5000',
-            'description' => 'required|string|max:5000',
-            'photo' => 'required|max:5000',
-            'recurrence' => 'required|string|max:5000',
-            'date' => 'required',
-            'price' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if ($request->input('vote')) {
+
+
+
+            if($request->input('vote')==="yes"){
+                $validator = Validator::make($request->all(),[
+                    'name' => 'required|string|max:5000',
+                    'description' => 'required|string|max:5000',
+                    'photo' => 'required|max:5000',
+                    'recurrence' => 'required|string|max:5000',
+                    'date' => 'required',
+                    'price' => 'required',
+                ]);
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+
+                $image = $request->file('photo');
+                $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+                $path = "storage/manifestationCoverPics/". $filename;
+                $pathToDb = "manifestationCoverPics/". $filename;
+
+
+                Image::make($image->getRealPath())->fit(400, 280)->save($path);
+            }
+            else{
+                $pathToDb = $request->input('oldPhoto');
+            }
+
+
+
+            $idea = Idea::find($request->input('id'));
+            $idea->delete();
+            User::find($request->input('author'))->notify(new IdeaSelected($idea));
+
         }
 
-        $image = $request->file('photo');
-        $filename  = time() . '.' . $image->getClientOriginalExtension();
+        else{
+            $validator = Validator::make($request->all(),[
+                'name' => 'required|string|max:5000',
+                'description' => 'required|string|max:5000',
+                'photo' => 'required|max:5000',
+                'recurrence' => 'required|string|max:5000',
+                'date' => 'required',
+                'price' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
-        $path = "storage/manifestationCoverPics/". $filename;
-        $pathToDb = "manifestationCoverPics/". $filename;
+            $image = $request->file('photo');
+            $filename  = time() . '.' . $image->getClientOriginalExtension();
+
+            $path = "storage/manifestationCoverPics/". $filename;
+            $pathToDb = "manifestationCoverPics/". $filename;
 
 
-        Image::make($image->getRealPath())->fit(400, 280)->save($path);
-
-
+            Image::make($image->getRealPath())->fit(400, 280)->save($path);
+        }
 //        $path = $request->file('photo')->store('/public/manifestationPics');
 //        $path = substr($path,7);
 
@@ -138,7 +183,8 @@ class ManifestationsController extends Controller
             'price' => $request->input('price'),
         ]);
 
-        return redirect()->back()->with('success', ['Bravo ! ']);
+        $idLast=$manifObj->orderBy('created_at','desc')->first();
+        return redirect()->route('manif',$idLast->id);
 
     }
 }

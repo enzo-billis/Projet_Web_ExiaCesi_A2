@@ -3,22 +3,7 @@
 @section('content')
 
     <div class="container">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-            @if (\Session::has('success'))
-                <div class="alert alert-success">
-                    <ul>
-                        <li>Activité bien ajoutée !</li>
-                    </ul>
-                </div>
-            @endif
+
         <div class="row justify-content-ml-center">
 
             <div class="col-2" class="form-group">
@@ -30,12 +15,14 @@
                     <option value="3">Du mois</option>
                 </select>
             </div>
+            @if(isset(Auth::user()->id))
             @if(Auth::user()->rang>0)
                 <div class="col-2 offset-7">
                     <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#addActivitie" >
                         Ajouter une activité
                     </button>
                 </div>
+            @endif
             @endif
         </div>
         <div id="container" class="row">
@@ -133,8 +120,8 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src="+image+"><br>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<img src=/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -151,8 +138,8 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src="+image+"><br>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<img src=/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -170,8 +157,8 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src="+image+"><br>"+
+                                "<a href=/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<img src=/storage/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -188,8 +175,8 @@
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
-                                "<a href=manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src="+image+"><br>"+
+                                "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
+                                "<img src=/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
