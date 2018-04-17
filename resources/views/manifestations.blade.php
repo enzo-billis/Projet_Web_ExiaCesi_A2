@@ -15,14 +15,12 @@
                     <option value="3">Du mois</option>
                 </select>
             </div>
-            @if(isset(Auth::user()->id))
-            @if(Auth::user()->rang>0)
+            @if(isset(Auth::user()->id) && Auth::user()->rang==1)
                 <div class="col-2 offset-7">
                     <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#addActivitie" >
                         Ajouter une activité
                     </button>
                 </div>
-            @endif
             @endif
         </div>
         <div id="container" class="row">
@@ -116,12 +114,12 @@
             for (var i in responses){
                 switch (filterValue) {
                     case "0" :
-                        var image = "storage/"+responses[i].image;
+                        var image = responses[i].image;
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src=/"+image+"><br>"+
+                                "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -133,7 +131,7 @@
                         break;
                     case "1" :
                         if (responses[i].date_add >= actualDate) {
-                            var image = "storage/"+responses[i].image;
+                            var image = responses[i].image;
 
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
@@ -152,7 +150,7 @@
                         break;
                     case "2" :
                         if (responses[i].date_add < actualDate) {
-                            var image = "storage/"+responses[i].image;
+                            var image = responses[i].image;
 
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
@@ -171,7 +169,7 @@
                         break;
                     case "3" :
                         if (responses[i].date_add >= firstDate && responses[i].date_add <= lastDate) {
-                                var image = "storage/"+responses[i].image;
+                                var image = responses[i].image;
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card'>" +
