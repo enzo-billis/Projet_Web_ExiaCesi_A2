@@ -14,11 +14,20 @@ class NotificationsController extends Controller
     {
     }
 
+    /*
+     * Function get return all unread notifications about the actual user
+     */
+
     function get(){
         $user = Auth::user();
         $notifications = $user->unreadNotifications;
         return ($notifications);
     }
+
+    /*
+     * Function mark as read the notification contained in the $request
+     */
+
     function read(Request $request){
         Auth::user()->unreadNotifications()->find($request->id)->markAsRead();
     }

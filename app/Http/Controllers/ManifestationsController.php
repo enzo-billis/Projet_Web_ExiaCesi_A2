@@ -22,82 +22,128 @@ class ManifestationsController extends Controller
     {
     }
 
-    function checkIfRegister($user,$manif){
+    /*
+     * Function checkIfRegister check if the user already register for this manif
+     * Parameter : $user => the id of the user, $manuf => the id of the manif
+     * Return true or false
+     */
+    function checkIfRegister($user, $manif)
+    {
         $inscriptions = New inscription();
-        if($inscriptions->where(['activity' => $manif, 'user' => $user])->first()){
+        if ($inscriptions->where(['activity' => $manif, 'user' => $user])->first()) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
+    /*
+     * Function index return a manifestation
+     * Parameter : $id => the id the manif
+     * Return an object Manifestation with all attributs for this
+     */
     function index($id)
     {
+        //We define instanciate an object and we put inside all data of the manifestation from the DB
         $pictureController = New PictureController();
         $manif = activitie::findOrFail($id);
+
+        //We get all pictures for this manifestation
         $pictures = $pictureController->getPictures($id);
 
-        if ($manif->status == 3){
+        //We define status of the manifestation with the date_add (Date of the manif)
+        if ($manif->status == 3) {
             $manif->status = "Annulé";
             $manif->date_add = "2099-12-30";
         }
 
-        if ($manif->date_add > date('Y-m-d') && $manif->date_add!=="2099-12-30"){
+        if ($manif->date_add > date('Y-m-d') && $manif->date_add !== "2099-12-30") {
             $manif->status = "A venir";
         }
-        if ($manif->date_add < date('Y-m-d')){
+        if ($manif->date_add < date('Y-m-d')) {
             $manif->status = "Passé";
 
         }
-        if ($manif->date_add == date('Y-m-d')){
+        if ($manif->date_add == date('Y-m-d')) {
             $manif->status = "En cours";
         }
 
-
-
+//If the user is connected
         if (isset(Auth::user()->id)) {
-            if ($manif->status === "Passé"){
 
-                return view('manifestation', compact('manif','pictures','inscrits'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal'=>true]);
+            // && the manifestation passed
+            if ($manif->status === "Passé") {
+
+                // we return the view manifestation with some style and data
+                return view('manifestation', compact('manif', 'pictures', 'inscrits'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal' => true]);
 
             }
-            if ($manif->status === "Annulé"){
-                return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Annulé", 'numberPicture' => count($pictures), 'route' => "/home"]);
-            }
-            else{
+
+            // && the manifestation annuled
+            if ($manif->status === "Annulé") {
+                // we return the view manifestation with some style and data
+                return view('manifestation', compact('manif', 'pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Annulé", 'numberPicture' => count($pictures), 'route' => "/home"]);
+            } // && the manifestation is to come
+            else {
+
+                // && user is not register
                 if (!$this->checkIfRegister(Auth::user()->id, $id)) {
-                    $inscrits=$manif->users;
-                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures) , 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
-                } else {
-                    $inscrits=$manif->users;
-                    return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id),'inscrits'=>$inscrits]);
+
+
+                    $inscrits = $manif->users;
+
+                    return view('manifestation', compact('manif', 'pictures'), ['buttonStyle' => 'btn btn-primary', 'buttonText' => "S'inscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id), 'inscrits' => $inscrits]);
+                } // && user is already register
+                else {
+
+                    $inscrits = $manif->users;
+                    return view('manifestation', compact('manif', 'pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Se désinscrire", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id), 'inscrits' => $inscrits]);
                 }
             }
 
-            }
+        } //if user is not auth
         else {
-            return view('manifestation', compact('manif','pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
+            return view('manifestation', compact('manif', 'pictures'), ['buttonStyle' => 'btn btn-danger', 'buttonText' => "Connectez vous !", 'numberPicture' => count($pictures), 'route' => route('registerManif', $manif->id)]);
         }
 
     }
 
-    function allManif(){
+    /*
+        * Function allManif return all manifestation
+        * Parameter :
+        * Return array of object Manif
+        */
+    function allManif()
+    {
         $manifObj = new activitie();
         $manifs = $manifObj->latest('created_at')->get();
         return view('manifestations', compact('manifs'));
 
     }
-    function APIManifFiltered($param){
+
+    /*
+        * Function APIManifFiltered return a manifestation
+        * Parameter : id of manifestation
+        * Return manif information in JSON format
+        */
+    function APIManifFiltered($param)
+    {
 
         $activities = New activitie();
 
-        $manif = $activities->where('id','=',$param)->get();
+        $manif = $activities->where('id', '=', $param)->get();
 
         return response()->json($manif);
 
     }
-    function APIManifs(){
+
+    /*
+       * Function APIManif return all manifestations
+       * Parameter :
+       * Return manifs informations in JSON format
+       */
+    function APIManifs()
+    {
 
         $manifObj = new activitie();
         $manifs = $manifObj->latest('created_at')->get();
@@ -106,14 +152,21 @@ class ManifestationsController extends Controller
 
     }
 
-    function newManif(Request $request){
-
+    /*
+       * Function newManif allow you to create a new maniestation
+       * Parameter : the request, from the form
+       * Return :
+       */
+    function newManif(Request $request)
+    {
+        //If the request contain a vote input mean it's come from and Idea and should be change to a real manifestation
         if ($request->input('vote')) {
 
+            //If the input vote is yes we will change the picture for the idea
+            if ($request->input('vote') === "yes") {
 
-
-            if($request->input('vote')==="yes"){
-                $validator = Validator::make($request->all(),[
+                //We check content of the request to validate it
+                $validator = Validator::make($request->all(), [
                     'name' => 'required|string|max:5000',
                     'description' => 'required|string|max:5000',
                     'photo' => 'required|max:5000',
@@ -121,33 +174,38 @@ class ManifestationsController extends Controller
                     'date' => 'required',
                     'price' => 'required',
                 ]);
+
+                //If validation doesn't match we return errors
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator)->withInput();
                 }
 
+                //We define the object image & a unique file name
                 $image = $request->file('photo');
-                $filename  = time() . '.' . $image->getClientOriginalExtension();
+                $filename = time() . '.' . $image->getClientOriginalExtension();
 
-                $path = "storage/manifestationCoverPics/". $filename;
-                $pathToDb = "/storage/manifestationCoverPics/". $filename;
+                //There is two path because this is relative path and not the same for saving image and printing it from DB
+                $path = "storage/manifestationCoverPics/" . $filename;
+                $pathToDb = "/storage/manifestationCoverPics/" . $filename;
 
-
+                //We resize & save the picture
                 Image::make($image->getRealPath())->fit(400, 280)->save($path);
-            }
-            else{
+            } //If no we let the old image
+            else {
                 $pathToDb = $request->input('oldPhoto');
             }
 
-
-
+            //We search the idea matching with the ID come from the form
             $idea = Idea::find($request->input('id'));
+            //We delete it
             $idea->delete();
+            //We notify the user who propose the idea
             User::find($request->input('author'))->notify(new IdeaSelected($idea));
 
-        }
+        } else {
 
-        else{
-            $validator = Validator::make($request->all(),[
+            //Same as above
+            $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:5000',
                 'description' => 'required|string|max:5000',
                 'photo' => 'required|max:5000',
@@ -160,10 +218,10 @@ class ManifestationsController extends Controller
             }
 
             $image = $request->file('photo');
-            $filename  = time() . '.' . $image->getClientOriginalExtension();
+            $filename = time() . '.' . $image->getClientOriginalExtension();
 
-            $path = "storage/manifestationCoverPics/". $filename;
-            $pathToDb = "/storage/manifestationCoverPics/". $filename;
+            $path = "storage/manifestationCoverPics/" . $filename;
+            $pathToDb = "/storage/manifestationCoverPics/" . $filename;
 
 
             Image::make($image->getRealPath())->fit(400, 280)->save($path);
@@ -171,6 +229,7 @@ class ManifestationsController extends Controller
 //        $path = $request->file('photo')->store('/public/manifestationPics');
 //        $path = substr($path,7);
 
+        //We create the new line in the DB for this new manifestation with all input informations
         $manifObj = New activitie();
         $manifObj::create([
             'name' => $request->input('name'),
@@ -183,8 +242,9 @@ class ManifestationsController extends Controller
             'price' => $request->input('price'),
         ]);
 
-        $idLast=$manifObj->orderBy('created_at','desc')->first();
-        return redirect()->route('manif',$idLast->id);
+        //We get the last manifestation in the databse (The one we just created) & redirect user to this page
+        $idLast = $manifObj->orderBy('created_at', 'desc')->first();
+        return redirect()->route('manif', $idLast->id);
 
     }
 }
