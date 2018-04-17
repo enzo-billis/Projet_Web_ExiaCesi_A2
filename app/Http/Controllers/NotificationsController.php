@@ -14,8 +14,9 @@ class NotificationsController extends Controller
     {
     }
 
-    /*
+    /**
      * Function get return all unread notifications about the actual user
+     * @return Notification $notifications
      */
 
     function get(){
@@ -24,8 +25,9 @@ class NotificationsController extends Controller
         return ($notifications);
     }
 
-    /*
+    /**
      * Function mark as read the notification contained in the $request
+     * @return void
      */
 
     function read(Request $request){

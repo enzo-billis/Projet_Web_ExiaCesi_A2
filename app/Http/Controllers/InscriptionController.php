@@ -12,15 +12,18 @@ use Illuminate\Support\Facades\Auth;
 class InscriptionController extends Controller
 {
 
-    //Middleware auth allow usage of function only if the actual user is connected
+    /**
+     * Allow usage of function only if the actual user is connected
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-   /*
+   /**
     * This function register a user for a manifestation.
-    * Accept on param => Id of the manifestation
+    * @param $Id of the manifestation
+    * @return nothing
     */
     function registration($id){
         /*
@@ -35,21 +38,19 @@ class InscriptionController extends Controller
                 'date'=>$mytime,
             ]);
         }
-        //If user is already register we delete it from the DB
+        //! If user is already register we delete it from the DB
         else{
             $inscriptionToDelete=inscription::where(['activity' => $id, 'user' => Auth::user()->id]);
             $inscriptionToDelete->delete();
         }
-        //We redirect to the manifestation page
+        //! We redirect to the manifestation page
         return redirect()->route('manif', ['id' => $id]);
     }
-/*
- * Function register return true or false
+/**
  * Check if the user is register for this manif
- * Parameters :
- * $user => Id of the user
- * $manif => Id of the manif
- * CHeck into the table inscription (from DB)
+ * @param $user => Id of the user
+ * @param $manif => Id of the manif
+ * @return true or false
  */
 
     function checkIfRegister($user,$manif){

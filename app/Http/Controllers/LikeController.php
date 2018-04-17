@@ -11,9 +11,10 @@ use App\Like;
  */
 class LikeController extends Controller
 {
-    /*
+    /**
      * Function getLikes return all likes for a picture
-     * Accept one parameter : the id of the picture
+     * @param the id of the picture
+     * @return $likes
      */
     public function getLikes($id_picture){
         $likeObj = New Like();
@@ -21,10 +22,10 @@ class LikeController extends Controller
         return $likes;
     }
 
-    /*
+    /**
      * Function checkIfLike check if the user already like the picture
-     * Parameter : $id_pic => the id of the picture
-     * Return true or false
+     * @param  $id_pic => the id of the picture
+     * @return  true or false
      */
     public static function checkIfLike($id_pic){
         if (isset(Auth::user()->id)){

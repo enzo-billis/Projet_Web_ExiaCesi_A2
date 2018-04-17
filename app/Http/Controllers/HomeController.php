@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-/*
+/**
  * HomeController is used to return the view 'home' only for connected user's (Thank's to the middleware in the construct function)
  */
 
