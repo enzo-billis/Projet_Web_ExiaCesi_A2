@@ -46,8 +46,8 @@
             for (let i in response) {
             if (filterValue == 0) {
                 let image = response[i].image;
-                let deleteLink = "/shop/modify/"+response[i].name;
-                let altLink = "/shop/rem/"+response[i].name;
+                let deleteLink = "/shop/modify/"+response[i].id;
+                let altLink = "/shop/rem/"+response[i].id;
                 containterE.innerHTML = containterE.innerHTML +
                     "<div class='col-md-4 card' style='padding : 0;'>" +
                     "<div class='card-header' style='text-align: center;'>" +
@@ -62,14 +62,15 @@
                     "</div>" +
                     "<p>"+response[i].description+"</p>" +
                     "<p>"+response[i].price+ " €</p>" +
-                    "<a href='/shop/cart/"+response[i].name+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"
+                    "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"
+                    "</div>" +
                     "</div>"
             }
             else {
                 if (response[i].category == filterValue) {
                     let image = response[i].image;
-                    let deleteLink = "/shop/modify/"+response[i].name;
-                    let altLink = "/shop/rem/"+response[i].name;
+                    let deleteLink = "/shop/modify/"+response[i].id;
+                    let altLink = "/shop/rem/"+response[i].id;
                     containterE.innerHTML = containterE.innerHTML +
                         "<div class='col-md-4 card' style='padding : 0;'>" +
                         "<div class='card-header' style='text-align: center;'>" +
@@ -84,7 +85,8 @@
                         "</div>" +
                         "<p>"+response[i].description+"</p>" +
                         "<p>"+response[i].price+ " €</p>" +
-                        "<a href='/shop/cart/"+response[i].name+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"
+                        "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"
+                        "</div>" +
                         "</div>"
                     }
                 }
