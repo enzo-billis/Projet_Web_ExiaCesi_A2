@@ -17,7 +17,7 @@
                             <option value='3'>3-Miscellaneous</option>
                         </select></label><br>
                     <input type="file" id="image" name="image" class="form-control" value="{{$article->image}}">
-                    <input type="hidden" id="id" name="id" value="{{$article->id}}">
+                    <input type="hidden" id="oldname" name="oldname" value="{{$article->name}}">
                     <input id="submit" type="submit">
                 </form>
                 @endforeach
