@@ -54,7 +54,6 @@ Route::get('/shop','catalogController@showCatalog')->name('shopList');
 Route::get('/shop/add','catalogController@addProduct')->name('newProduct');
 Route::get("/shop/modify/{name}",'catalogController@EditProduct');
 Route::get("/shop/rem/{name}","catalogController@removeProduct");
-Route::get("/shop/img/{image}","catalogController@showImage")->name("showImage");
 Route::post('/shop/post','catalogController@PostAddProduct')->name('PostNewProduct');
 Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('PostAltProduct');
 
