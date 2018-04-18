@@ -29,17 +29,16 @@ class buyController
     }
 
     function addtoCart($id){
-        $user = Auth::user();
         $product = $id;
-        if (!buy::findOrFail($product)) {
+        if (buy::findOrFail($product)) {
+            DB::table('buys')->where('product','=',$product)->increment('quantity',1);
+        } else {
             buy::create([
                 'quantity' => 1,
                 'user' => $user->id,
                 'status' => 0,
-            'product' => $id
-        ]);
-        } else {
-            DB::table('buys')->where('product','=',$product)->increment('quantity',1);
+                'product' => $id
+            ]);
         }
         return redirect()->route('shopList');
     }
