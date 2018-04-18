@@ -22,18 +22,33 @@ class buyController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     function showCart() {
-
-        return view('buy');
+        $user = Auth::user();
+        $buyObj = New buy();
+        $commands = $buyObj->where('user',"=",$user->id)->where("status","=", 0)->get();
+        return view('buy', compact('commands'));
     }
 
     function addtoCart($id){
-        buy::create([
-          'quantity' => 1,
-          'user' => Auth::user()->id,
-          'product' => $id,
-          'status' => 0
-        ]);
-        return redirect()->back();
+        $user = Auth::user();
+        $buyObj = New buy();
+        $commands = $buyObj->where('user',"=",$user->id)->where("status","=", 0)->where('product','=',$id)->get();
+//        dd($commands);
+        if ($commands->isEmpty()){
+            buy::create([
+                'quantity' => 1,
+                'user' => Auth::user()->id,
+                'product' => $id,
+                'status' => 0
+            ]);
+            return redirect()->back();
+        }
+        else{
+//            dd( $commands);
+           $quantity = $commands->first()->quantity;
+           $commands->first()->quantity = $quantity+1;
+           $commands->first()->save();
+            return redirect()->back();
+        }
     }
 
     /**

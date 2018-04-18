@@ -35,27 +35,4 @@
             </div>
         </div>
     </div>
-    <script>
-        let request = new XMLHttpRequest();
-        request.open("GET", "{{route('APIBuy')}}", false);
-        request.send(null);
-        let response = JSON.parse(request.responseText);
-        showCatalog();
-
-        function showCatalog() {
-        containerE = document.getElementById("tab-content");
-        containerE.innerHTML = "";
-        for (let i in response) {
-                let removeBuy = "/cart/rem/"+response[i].id;
-                let produit = "/cart/name/"+response[i].product;
-                containerE.innerHTML = containerE.innerHTML +
-                        "<tr>"+
-                        "<td>"+"<p>"+produit+"</p>"+"</td>"+
-                        "<td>"+"<p>"+response[i].quantity+"</p>"+"</td>"+
-                        "<td>"+"<p>"+response[i].created_at+"</p>"+"</td>"+
-                        "<td>"+"<a href='"+removeBuy+"'>"+"retirer"+"</a>" +"</td>"+
-                        "</tr>"
-            }
-        }
-    </script>
 @endsection
