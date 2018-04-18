@@ -5,7 +5,7 @@
             <div class=" col-4-md">
                 <a href="{{route('cart')}}"><button type="button" class="btn btn-info"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Mon panier</button></a>
             </div>
-        @if(Auth::user()->isRang(1))
+        @if(Auth::user() && Auth::user()->isRang(1))
             <div class="offset-8 col-4-md ">
                 <a href="{{route('newProduct')}}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter un produit</button></a>
             </div>
@@ -62,7 +62,7 @@
                     "</div>" +
                     "<p>"+response[i].description+"</p>" +
                     "<p>"+response[i].price+ " €</p>" +
-                    "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"
+                    "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"+
                     "</div>" +
                     "</div>"
             }
@@ -85,7 +85,7 @@
                         "</div>" +
                         "<p>"+response[i].description+"</p>" +
                         "<p>"+response[i].price+ " €</p>" +
-                        "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"
+                        "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"+
                         "</div>" +
                         "</div>"
                     }

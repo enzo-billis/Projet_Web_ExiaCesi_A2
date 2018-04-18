@@ -12,13 +12,12 @@ class BuyTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 200; $i++) {
-            DB::table('buys')->insert([
-                'quantity' => $faker->numberBetween(1, 10),
-                'status' => $faker->numberBetween(0, 2),
-                'user' => $faker->numberBetween(1, 50),
-                'product' => $faker->numberBetween(1, 50),
-            ]);
-        }
+
+        DB::table('buys')->insert([
+            'quantity' => $faker->numberBetween(1,10),
+            'status' => $faker->numberBetween(0,2),
+            'user' => $faker->numberBetween(1,50),
+            'product' => $faker->numberBetween(1,50),
+        ]);
     }
 }

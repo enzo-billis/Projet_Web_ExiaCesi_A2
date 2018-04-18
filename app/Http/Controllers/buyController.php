@@ -10,7 +10,10 @@ namespace App\Http\Controllers;
 
 
 use App\buy;
+use App\catalog;
+
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class buyController
 {
@@ -19,10 +22,18 @@ class buyController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     function showCart() {
-        $user = Auth::user();
-        $buyObj = New buy();
-        $commands = $buyObj->where('user',"=",$user->id)->where("status","=", 0)->get();
-        return view('buy', compact('commands'));
+
+        return view('buy');
+    }
+
+    function addtoCart($id){
+        buy::create([
+          'quantity' => 1,
+          'user' => Auth::user()->id,
+          'product' => $id,
+          'status' => 0
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -31,9 +42,15 @@ class buyController
      */
     function APIshowCart() {
         $buy = new buy();
-        $command = $buy->all();
+        $command = $buy->where('status','=',1);
         return response()->json($command);
     }
-    function showProductName($id) {
+    function APIshowHistoric() {
+        $buy = new buy();
+        $historic = $buy->all();//where('status','=',2);
+        return response()->json($historic);
+    }
+    function showProductName($product) {
+        DB::table('buy')->join('catalogs','buy.'.$product,'=','catalogs.id')->select('catalogs.name')->get();
     }
 }
