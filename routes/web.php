@@ -59,3 +59,5 @@ Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('Pos
 
 //Route for buy/cart
 Route::get('/cart','buyController@showCart')->name('cart');
+
+Route::get('/administration',function () {return view('administration');});
