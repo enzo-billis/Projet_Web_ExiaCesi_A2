@@ -16,7 +16,7 @@ class CommentTableSeeder extends Seeder
             DB::table('comments')->insert([
                 'id_pictures' => $faker->numberBetween(1, 50),
                 'id_users' => $faker->numberBetween(1, 20),
-                'comment' => $faker->text,
+                'comment' => $faker->realText(100),
             ]);
         }
     }
