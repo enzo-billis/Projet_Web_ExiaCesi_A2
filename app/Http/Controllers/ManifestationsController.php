@@ -70,12 +70,18 @@ class ManifestationsController extends Controller
 
 //! If the user is connected
         if (isset(Auth::user()->id)) {
-
+            $inscriptionObj = New inscription();
+            $register = $inscriptionObj->where('user','=',Auth::user()->id)->where('activity','=',$id)->get();
+//            dd($register);
             //! && the manifestation passed
-            if ($manif->status === "Passé") {
+            if ($manif->status === "Passé" && !$register->isEmpty()) {
 
                 //! we return the view manifestation with some style and data
                 return view('manifestation', compact('manif', 'pictures', 'inscrits'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Partagez vos photos", 'numberPicture' => count($pictures), 'modal' => true]);
+
+            }
+            elseif ($manif->status === "Passé" && $register->isEmpty()){
+                return view('manifestation', compact('manif', 'pictures', 'inscrits'), ['buttonStyle' => 'btn btn-success', 'buttonText' => "Vous n'étiez pas inscrit.", 'numberPicture' => count($pictures), 'modal' => false]);
 
             }
 
