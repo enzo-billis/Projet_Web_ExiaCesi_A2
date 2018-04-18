@@ -9,7 +9,9 @@
 namespace App\Http\Controllers;
 
 
+use App\buy;
 use App\catalog;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -132,6 +134,9 @@ class catalogController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     function showCatalog() {
+        $buyObj = New buy();
+        $result=$buyObj->select('product',DB::raw('count(*) as total'))->where('status','=','1')->groupBy('product')->orderBy('quantity','desc')->take(3)->get();
+        dd($result);
         return view('shop');
     }
 
