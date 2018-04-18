@@ -1,7 +1,12 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <a href="{{route('newProduct')}}">Add product</a>
+    <div>
+        <a href="{{route('newProduct')}}">Add product</a>
+        <input type="search">
+        <a href="{{route('cart')}}">YourCart</a>
+    </div>
+    <br>
     <label for="filterValue">filtrer par catégorie</label>
     <select id="filterValue" name="filterValue" onchange="filter(this.value)">
         <option value="0">Tout</option>

@@ -11,28 +11,48 @@ namespace App\Http\Controllers;
 
 use App\catalog;
 use Illuminate\Http\Request;
-use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class catalogController extends Controller
 {
     public function __construct()
     {
     }
-
+/**
+ * Find a product depending of the name
+ * @param $name
+ * @return catalog('manifestation')
+ */
     function findProduct($name)
     {
         return catalog::where(['name' => $name]);
     }
+
+    /**
+     *
+     * @return
+     */
+
     function addProduct()
     {
-        return view('newProduct', compact('newProduct'));
+        return view('newProduct');
     }
     function PostAddProduct(Request $request)
     {
+        $image = $request->file('image');
+        $filename = time().'.'. $image->getClientOriginalExtension();
+
+        $path = "storage/CatalogPics/".$filename;
+        $pathToDb = "/storage/CatalogPics/".$filename;
+
+        Image::make($image->getRealPath())->fit('400','280')->save($path);
+
         $name = $request->input('name');
         $description = $request->input('description');
         $price = $request->input('price');
-        $image = $this->postImage($request, $name);
+        $image = $pathToDb;
         $category = $request->input('category');
                 catalog::create([
                     'name'=>$name,
@@ -44,14 +64,28 @@ class catalogController extends Controller
             return redirect()->route('shopList');
     }
     function EditProduct($name) {
+        // target : access to modify page of the selected article
         $catalogs = new catalog();
-        $catalog = $catalogs->where( 'name', '=', $name);
-        return view('altProduct', compact('catalog'));
+        $catalog = $catalogs->where('name','=',$name)->get();
+        return view('altProduct',compact('catalog'));
     }
-    function postEditProduct($oldName, $name, $description, $price, $image, $category)
+    function postEditProduct(Request $request)
     {
-        catalog::findOrFail($oldName)->update(['name'=>$name,'description'=>$description,'price'=>$price,'image'=>$image,'category',$category]);
-        return redirect()->route('shop');
+        $oldName = $request->input('oldname');
+        $name = $request->input('name');
+        $image = $this->postImage($request);
+        $price = $request->input('price');
+        $category = $request->input('category');
+        $description = $request->input('description');
+        $catalog = new Catalog();
+        $catalog->where('name', '=',$oldName)->update(
+        ['name'=> $name,
+        'description'=>$description,
+        'image'=>$image,
+        'category'=>$category,
+        'price'=>$price
+        ]);
+        return redirect()->route('shopList');
     }
     function removeProduct($name)
     {
@@ -68,6 +102,12 @@ class catalogController extends Controller
         $shop = $catalogs->where('category','=',$category);
         return response()->json($shop);
     }
+    function APIShowByName($name) {
+        $catalogs = new catalog();
+        $shop = $catalogs->where('name','=',$name);
+        return response()->json($shop);
+
+    }
     function APICatalog() {
         $catalog = New catalog();
 
@@ -77,16 +117,12 @@ class catalogController extends Controller
     }
 
 
-    function postImage($request, $name) {
-        $this->validate($request, [ 'image' => 'required|image|mimes:jpeg,png,gif,svg|max:1024',]);
-    //    $imageName = $name.'.'.$request->image->getClientOriginalExtention();
-    //    $request->image->move(storage_path('app'),$imageName);
-        $image = $request->image;
-        $imageName = $image->store('catalog');
-        return $imageName;
+    function postImage($request) {
+        $file = Input::file('');
+
     }
     function showImage ($image) {
-        $thisImage = Storage::get($image);
+        $thisImage = Storage::put('/public/storage/catalog/',$image);
         return $thisImage;
     }
 }
