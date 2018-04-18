@@ -72,13 +72,13 @@ class catalogController extends Controller
 
     /**
      * Access to the modification product page depending of the selected product
-     * @param $name
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    function EditProduct($name) {
+    function EditProduct($id) {
         // target : access to modify page of the selected article
         $catalogs = new catalog();
-        $catalog = $catalogs->where('name','=',$name)->get();
+        $catalog = $catalogs->where('id','=',$id)->get();
         return view('altProduct',compact('catalog'));
     }
 
@@ -96,14 +96,14 @@ class catalogController extends Controller
         $pathToDb = "/storage/CatalogPics/".$filename;
 
         Image::make($image->getRealPath())->fit('400','280')->save($path);
-        $oldName = $request->input('oldname');
+        $id = $request->input('id');
         $name = $request->input('name');
         $image = $pathToDb;
         $price = $request->input('price');
         $category = $request->input('category');
         $description = $request->input('description');
         $catalog = new Catalog();
-        $catalog->where('name', '=',$oldName)->update(
+        $catalog->where('id', '=',$id)->update(
         ['name'=> $name,
         'description'=>$description,
         'image'=>$image,
@@ -115,14 +115,14 @@ class catalogController extends Controller
 
     /**
      * Remove a product from the database depending of his name, and redirect to the shop
-     * @param $name
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    function removeProduct($name)
+    function removeProduct($id)
     {
         $catalogs = new catalog();
-       $deletedProduct = $catalogs->where(['name' => $name]);
+       $deletedProduct = $catalogs->where(['id' => $id]);
        $deletedProduct->delete();
        return redirect()->route('shopList');
     }
