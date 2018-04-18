@@ -13,7 +13,7 @@ class BuyTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-        DB::table('buy')->insert([
+        DB::table('buys')->insert([
             'quantity' => $faker->numberBetween(1,10),
             'status' => $faker->numberBetween(0,2),
             'user' => $faker->numberBetween(1,50),

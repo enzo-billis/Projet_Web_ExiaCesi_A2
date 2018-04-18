@@ -1,20 +1,35 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <div>
-        <a href="{{route('newProduct')}}">Add product</a>
-        <input type="search">
-        <a href="{{route('cart')}}">YourCart</a>
+    <div class="row">
+            <div class=" col-4-md">
+                <a href="{{route('cart')}}"><button type="button" class="btn btn-info"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Mon panier</button></a>
+            </div>
+        @if(Auth::user() && Auth::user()->isRang(1))
+            <div class="offset-8 col-4-md ">
+                <a href="{{route('newProduct')}}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter un produit</button></a>
+            </div>
+        @endif
     </div>
     <br>
-    <label for="filterValue">filtrer par catégorie</label>
-    <select id="filterValue" name="filterValue" onchange="filter(this.value)">
-        <option value="0">Tout</option>
-        <option value="1">Vêtements</option>
-        <option value="2">Goodies</option>
-        <option value="3">Divers</option>
-    </select>
-<div id="container" class="col">
+    <div class="row">
+        <div class="col-4-md" >
+            <label style="padding-top: 6px "  for="filterValue">Filtrer:</label>
+            <select class="form-control " id="filterValue" name="filterValue" onchange="filter(this.value)">
+                <option value="0">Tout</option>
+                <option value="1">Vêtements</option>
+                <option value="2">Goodies</option>
+                <option value="3">Divers</option>
+            </select>
+
+        </div>
+        <div class="offset-2 col-3-md">
+            <label style="padding-top: 6px ">Rechercher :</label><input class="form-control" type="search">
+        </div>
+    </div>
+
+
+<div id="container" class="d-flex flex-wrap container" style="margin-top: 2em">
 
     </div>
 </div>
@@ -31,42 +46,46 @@
             for (let i in response) {
             if (filterValue == 0) {
                 let image = response[i].image;
-                let deleteLink = "/shop/modify/"+response[i].name;
-                let altLink = "/shop/rem/"+response[i].name;
+                let deleteLink = "/shop/modify/"+response[i].id;
+                let altLink = "/shop/rem/"+response[i].id;
                 containterE.innerHTML = containterE.innerHTML +
-                    "<div class='col-md- offset-1' id='1'>" +
-                    "<div class='card'>" +
-                    "<div class='card-header' style='text-align: center'>" +
+                    "<div class='col-md-4 card' style='padding : 0;'>" +
+                    "<div class='card-header' style='text-align: center;'>" +
                     "<h1>"+ response[i].name +"</h1>" +
-                    "<a href="+ deleteLink +">"+"modifier"+"</a>" + "<br>" +
-                    "<a href="+ altLink +">"+"retirer"+"</a>" +
-                    "<img src="+ image +">" +
+                    "<img src='"+ image +"' style='max-width: 100%;' >" +
+
                     "</div>" +
-                    "<div class='card-body'>" +
+                    "<div class='card-body' style='margin-top: 1em'>" +
+                    "<div style='text-align : center'>" +
+                    "<a href="+ deleteLink +"><button type=\"button\" class=\"btn btn-primary\"> <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> Modifier</button></a>" + " "+
+                    "<a href="+ altLink +"><button type=\"button\" class=\"btn btn-primary\"> <i class=\"fa fa-trash\" aria-hidden=\"true\"></i> Supprimer</button></a>" +
+                    "</div>" +
                     "<p>"+response[i].description+"</p>" +
-                    "<p>"+response[i].price+"</p>" +
-                    "<a href='/shop/cart/"+response[i].name+"'>add to cart</a>"
+                    "<p>"+response[i].price+ " €</p>" +
+                    "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"+
                     "</div>" +
                     "</div>"
             }
             else {
                 if (response[i].category == filterValue) {
                     let image = response[i].image;
-                    let deleteLink = "/shop/modify/"+response[i].name;
-                    let altLink = "/shop/rem/"+response[i].name;
+                    let deleteLink = "/shop/modify/"+response[i].id;
+                    let altLink = "/shop/rem/"+response[i].id;
                     containterE.innerHTML = containterE.innerHTML +
-                        "<div class='col-md- offset-1' id='1'>" +
-                        "<div class='card'>" +
-                        "<div class='card-header' style='text-align: center'>" +
+                        "<div class='col-md-4 card' style='padding : 0;'>" +
+                        "<div class='card-header' style='text-align: center;'>" +
                         "<h1>"+ response[i].name +"</h1>" +
-                        "<a href="+ deleteLink +">modifier</a>" + "<br>" +
-                        "<a href="+ altLink +">retirer</a>" +
-                        "<img src="+ image +">" +
+                        "<img src='"+ image +"' style='max-width: 100%;' >" +
+
                         "</div>" +
-                        "<div class='card-body'>" +
+                        "<div class='card-body' style='margin-top: 1em'>" +
+                        "<div style='text-align : center'>" +
+                        "<a href="+ deleteLink +"><button type=\"button\" class=\"btn btn-primary\"> <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <i class=\"fa fa-trash\" aria-hidden=\"true\"></i> Modifier</button></a>" + " "+
+                        "<a href="+ altLink +"><button type=\"button\" class=\"btn btn-primary\">Supprimer</button></a>" +
+                        "</div>" +
                         "<p>"+response[i].description+"</p>" +
-                        "<p>"+response[i].price+"</p>" +
-                        "<a href='/shop/cart/"+response[i].name+"'>add to cart</a>"
+                        "<p>"+response[i].price+ " €</p>" +
+                        "<a href='/shop/cart/"+response[i].id+"'><button type=\"button\" class=\"btn btn-success\"> <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i> Ajouter au panier</button></a>"+
                         "</div>" +
                         "</div>"
                     }

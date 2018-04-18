@@ -10,6 +10,9 @@ namespace App\Http\Controllers;
 
 
 use App\buy;
+use App\catalog;
+
+use Illuminate\Support\Facades\DB;
 
 class buyController
 {
@@ -18,6 +21,7 @@ class buyController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     function showCart() {
+
         return view('buy');
     }
 
@@ -27,9 +31,15 @@ class buyController
      */
     function APIshowCart() {
         $buy = new buy();
-        $command = $buy->all();
+        $command = $buy->where('status','=',1);
         return response()->json($command);
     }
-    function showProductName($id) {
+    function APIshowHistoric() {
+        $buy = new buy();
+        $historic = $buy->all();//where('status','=',2);
+        return response()->json($historic);
+    }
+    function showProductName($product) {
+        DB::table('buy')->join('catalogs','buy.'.$product,'=','catalogs.id')->select('catalogs.name')->get();
     }
 }

@@ -52,10 +52,15 @@ Route::post('/notification/read','NotificationsController@read')->middleware('au
 //Route for produits
 Route::get('/shop','catalogController@showCatalog')->name('shopList');
 Route::get('/shop/add','catalogController@addProduct')->name('newProduct');
-Route::get("/shop/modify/{name}",'catalogController@EditProduct');
-Route::get("/shop/rem/{name}","catalogController@removeProduct");
+Route::get("/shop/modify/{id}",'catalogController@EditProduct');
+Route::get("/shop/rem/{id}","catalogController@removeProduct");
 Route::post('/shop/post','catalogController@PostAddProduct')->name('PostNewProduct');
 Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('PostAltProduct');
 
 //Route for buy/cart
+Route::get('/shop/cart/{id}','buyController@addtoCart')->name('addToCard');
 Route::get('/cart','buyController@showCart')->name('cart');
+Route::get('/cart/rem/{id}','buyController@remCart');
+Route::get('/cart/name/{product}','buyController@showProductName');
+
+Route::get('/administration',function () {return view('administration');});

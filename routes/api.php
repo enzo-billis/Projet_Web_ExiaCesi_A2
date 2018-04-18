@@ -20,3 +20,4 @@ Route::get('/manif/{id}','ManifestationsController@APIManifFiltered');
 Route::get('/manif','ManifestationsController@APIManifs')->name('APIManifs');
 Route::get('/shop/', 'catalogController@APICatalog')->name('APICatalog');
 Route::get('/shop/{name}', 'catalogController@APISelect')->name('APISelect');
+Route::get('/carts','buyController@APIshowCart')->name('APIBuy');
