@@ -2,48 +2,33 @@
 
 @section('content')
 
-    <div class="col-md- offset-1" id="1">
-        <div class="card">
-            <div class="card-header">
-                <h2>ta commande</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Produit</th>
-                            <th>quantité</th>
-                            <th>date</th>
-                            <th>action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <div class="tab-content">
-                        </div>
-                    </tbody>
-                </table>
+    <div class="container">
+        <div class="col-md" id="1">
+            <div class="card">
+                <div class="card-header">
+                    Votre panier
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($commands as $command)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$command->product}}</td>
+                                <td>{{$command->quantity}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <script>
-        let request = new XMLHttpRequest();
-        request.open("GET", "{{route('APIBuy')}}", false);
-        request.send(null);
-        let response = JSON.parse(request.responseText);
-        showCatalog();
-
-        function showCatalog() {
-        containerE = document.getElementById("tab-content");
-        containerE.innerHTML = "";
-        for (let i in response) {
-                let removeBuy = "/cart/rem/"+response[i].id;
-                let produit = "/cart/name/"+response[i].product;
-                containerE.innerHTML = containerE.innerHTML +
-                        "<tr>"+
-                        "<td>"+"<p>"+produit+"</p>"+"</td>"+
-                        "<td>"+"<p>"+response[i].quantity+"</p>"+"</td>"+
-                        "<td>"+"<p>"+response[i].created_at+"</p>"+"</td>"+
-                        "<td>"+"<a href='"+removeBuy+"'>"+"retirer"+"</a>" +"</td>"+
-                        "</tr>"
-            }
-        }
-    </script>
-@endsection
+    @endsection

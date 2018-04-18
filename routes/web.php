@@ -58,7 +58,7 @@ Route::post('/shop/post','catalogController@PostAddProduct')->name('PostNewProdu
 Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('PostAltProduct');
 
 //Route for buy/cart
-Route::get('/shop/cart/{id}','buyController@addtoCart')->name('addToCard');
+Route::get('/shop/cart/{id}','buyController@addtoCart');
 Route::get('/cart','buyController@showCart')->name('cart');
 Route::get('/cart/rem/{id}','buyController@remCart');
 Route::get('/cart/name/{product}','buyController@showProductName');
