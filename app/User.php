@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property mixed rang
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -32,6 +35,10 @@ class User extends Authenticatable
     }
     public function inscription(){
         return $this->belongsToMany('App\activitie','inscriptions','user','activity')->as('inscription')->withPivot('date');
+    }
+
+    public function isRang(int $value) {
+        return $this->rang === $value;
     }
 
 }

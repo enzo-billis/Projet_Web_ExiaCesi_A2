@@ -15,7 +15,7 @@ class Picture extends Model
      * @var array
      */
     protected $fillable = [
-        'picture','date_image','id_users','id_event',
+        'picture','id_users','id_event','ban_reason','ban_user_id',
     ];
 
     public function activite(){

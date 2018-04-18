@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ 'BDE - Exia Cesi'}}</title>
+    <title>BDE - Exia Cesi</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -53,9 +53,9 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a></li>
                         @else
 
-                                <notification v-bind:notifications="notifications"> </notification>
+                                <notification></notification>
 
-                            @if(Auth::user()->rang==1)
+                            @if(Auth::user()->isRang(1))
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Administration BDE <span class="caret"></span>
@@ -77,7 +77,7 @@
                                     </div>
                                 </li>
                                 @endif
-                                @if(Auth::user()->rang==2)
+                                @if(Auth::user()->isRang(2))
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Administration CESI <span class="caret"></span>
@@ -126,7 +126,7 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            @yield('content'):
         </main>
     </div>
 </body>

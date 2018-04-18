@@ -18,10 +18,12 @@ class activitie extends Model
         'name','image','description', 'date_add', 'price','month_activity', 'recurrence','status'
     ];
 
+    //Function use for relation has many to user attributs
     public function picture(){
         return $this->hasMany('App\Picture');
     }
 
+    //Function use for relation belongsToMany to
     public function users(){
         return $this->belongsToMany('App\User','inscriptions','activity','user')->as('users')->withPivot('date');
     }

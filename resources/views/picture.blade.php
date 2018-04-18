@@ -88,7 +88,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Supprimer le commentaire</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Supprimer la photo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -99,6 +99,9 @@
                         {{csrf_field()}}
 
                         <input type="hidden" name="idPic" value="{{$picture->id}}">
+
+                        <label>Raison : </label>
+                        <input type="text" name="reason">
 
                         <p>Etes-vous sûr de vouloir supprimer cette photo ? Les commentaires associés seront supprimés. Ceci est irréversible.</p>
 

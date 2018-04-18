@@ -16,9 +16,10 @@ class CreatePicturesTable extends Migration
         Schema::create('pictures', function (Blueprint $table) {
             $table->increments('id');
             $table->text('picture');
-            $table->date('date_image');
             $table->integer('id_users');
             $table->integer('id_event');
+            $table->string('ban_reason')->nullable();
+            $table->integer('ban_user_id')->nullable();
             $table->timestamps();
         });
     }
