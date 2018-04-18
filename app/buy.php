@@ -9,6 +9,6 @@ class buy extends Model
 {
     use Notifiable;
     protected $fillable = [
-        quantity, user, product, status
+        'quantity', 'user', 'product', 'status'
     ];
 }

@@ -2,24 +2,33 @@
 
 @section('content')
 
-    <div class="col-md- offset-1" id="1">
-        <div class="card">
-            <div class="card-header">
-
-                <tr>
-                    <th>Produit</th>
-                    <th>quantité</th>
-                    <th>action</th>
-                </tr>
-                @foreach($command as $brought)
-                    @if (Auth::user() == $brought->user)
-                <tr>
-                    <td>{{route('showProductName')}}</td>
-                    <td>{{$brought-quantity}}</td>
-                    <td>{{$brought->action}}</td>
-                </tr>
-                    @endif
-                @endforeach
+    <div class="container">
+        <div class="col-md" id="1">
+            <div class="card">
+                <div class="card-header">
+                    Votre panier
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($commands as $command)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$command->product}}</td>
+                                <td>{{$command->quantity}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+    @endsection

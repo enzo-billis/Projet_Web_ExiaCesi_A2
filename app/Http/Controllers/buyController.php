@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\buy;
+use Auth;
 
 class buyController
 {
@@ -18,7 +19,10 @@ class buyController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     function showCart() {
-        return view('buy');
+        $user = Auth::user();
+        $buyObj = New buy();
+        $commands = $buyObj->where('user',"=",$user->id)->where("status","=", 0)->get();
+        return view('buy', compact('commands'));
     }
 
     /**
