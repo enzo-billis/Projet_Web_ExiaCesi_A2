@@ -21,7 +21,7 @@
                         @foreach($commands as $command)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$command->product}}</td>
+                                <td>{{$command->catalog->name}}</td>
                                 <td>{{$command->quantity}}</td>
                             </tr>
                         @endforeach

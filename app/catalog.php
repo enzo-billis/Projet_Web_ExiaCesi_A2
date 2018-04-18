@@ -12,4 +12,8 @@ class catalog extends Model
         'name','description','image','price','category'
     ];
 
+    public function buy(){
+        return $this->hasMany('App\buy');
+    }
+
 }
