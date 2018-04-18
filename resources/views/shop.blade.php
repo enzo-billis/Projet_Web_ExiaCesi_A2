@@ -31,8 +31,8 @@
             for (let i in response) {
             if (filterValue == 0) {
                 let image = response[i].image;
-                let deleteLink = "/shop/modify/"+response[i].name;
-                let altLink = "/shop/rem/"+response[i].name;
+                let deleteLink = "/shop/modify/"+response[i].id;
+                let altLink = "/shop/rem/"+response[i].id;
                 containterE.innerHTML = containterE.innerHTML +
                     "<div class='col-md- offset-1' id='1'>" +
                     "<div class='card'>" +
@@ -45,15 +45,15 @@
                     "<div class='card-body'>" +
                     "<p>"+response[i].description+"</p>" +
                     "<p>"+response[i].price+"</p>" +
-                    "<a href='/shop/cart/"+response[i].name+"'>add to cart</a>"
+                    "<a href='/shop/cart/"+response[i].id+"'>add to cart</a>"
                     "</div>" +
                     "</div>"
             }
             else {
                 if (response[i].category == filterValue) {
                     let image = response[i].image;
-                    let deleteLink = "/shop/modify/"+response[i].name;
-                    let altLink = "/shop/rem/"+response[i].name;
+                    let deleteLink = "/shop/modify/"+response[i].id;
+                    let altLink = "/shop/rem/"+response[i].id;
                     containterE.innerHTML = containterE.innerHTML +
                         "<div class='col-md- offset-1' id='1'>" +
                         "<div class='card'>" +
@@ -66,7 +66,7 @@
                         "<div class='card-body'>" +
                         "<p>"+response[i].description+"</p>" +
                         "<p>"+response[i].price+"</p>" +
-                        "<a href='/shop/cart/"+response[i].name+"'>add to cart</a>"
+                        "<a href='/shop/cart/"+response[i].id+"'>add to cart</a>"
                         "</div>" +
                         "</div>"
                     }
