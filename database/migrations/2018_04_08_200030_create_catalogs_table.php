@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBuyTable extends Migration
+class CreateCatalogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateBuyTable extends Migration
      */
     public function up()
     {
-        Schema::create('buy', function (Blueprint $table) {
+        Schema::create('catalogs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('quantity');
-            $table->integer('user');
-            $table->integer('product');
-            $table->integer('status');
+            $table->text('name');
+            $table->text('description');
+            $table->text('image');
+            $table->float('price');
+            $table->integer('category');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateBuyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buy');
+        Schema::dropIfExists('catalogs');
     }
 }

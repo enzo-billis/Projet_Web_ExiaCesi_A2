@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCatalogTable extends Migration
+class CreateBuysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateCatalogTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog', function (Blueprint $table) {
+        Schema::create('buys', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name');
-            $table->text('description');
-            $table->text('image');
-            $table->float('price');
-            $table->integer('stock');
-            $table->integer('category');
+            $table->integer('quantity');
+            $table->integer('user');
+            $table->integer('product');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateCatalogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog');
+        Schema::dropIfExists('buys');
     }
 }

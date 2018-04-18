@@ -62,7 +62,7 @@
                     @foreach($comments as $comment)
                         <div class="card-header">
                                 <div style="float: left;">
-                                    {{$comment->date_comment}} | {{$comment->user->firstname}} {{$comment->user->lastname}} dit :
+                                    {{$comment->created_at}} | {{$comment->user->firstname}} {{$comment->user->lastname}} dit :
                                 </div>
                             @if(isset(Auth::user()->rang) && Auth::user()->rang >= 1)
                                 <div style="float: right">

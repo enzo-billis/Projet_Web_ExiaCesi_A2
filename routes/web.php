@@ -11,11 +11,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Redirect;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('welcome');});
 
 Auth::routes();
 
@@ -37,6 +33,7 @@ Route::post("/manif/download",'PictureController@downloadZip')->name('downloadPa
 //Route for ideas
 Route::get('/ideas/{id}','IdeaController@index')->name('idea');
 Route::get('/ideas','IdeaController@allIdeas')->name('ideas');
+Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown')->middleware('auth');
 Route::post('/ideas/{id}/plus','VoteController@changeVoteUp')->name('VoteUp')->middleware('auth');
 Route::post('/ideas/{id}/moins','VoteController@changeVoteDown')->name('VoteDown')->middleware('auth');
 Route::post('/ideas/new','IdeaController@newIdea')->name('newIdea')->middleware('auth');
@@ -45,9 +42,25 @@ Route::post('/ideas/new','IdeaController@newIdea')->name('newIdea')->middleware(
 Route::get("/picture/{id}",'PictureController@index')->name('picture');
 Route::post("/picture/{id}/like",'PictureController@like')->name('likePic')->middleware('auth');
 Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic')->middleware('auth');
-Route::post("/deleteCom",'CommentController@delete')->name('deleteCom')->middleware('auth');
 Route::post("/deletePic",'PictureController@delete')->name('deletePic')->middleware('auth');
+Route::post("/deleteCom",'CommentController@delete')->name('deleteCom')->middleware('auth');
 
 //Route for notif
 Route::post('/notification/get','NotificationsController@get');
 Route::post('/notification/read','NotificationsController@read')->middleware('auth');
+
+//Route for produits
+Route::get('/shop','catalogController@showCatalog')->name('shopList');
+Route::get('/shop/add','catalogController@addProduct')->name('newProduct');
+Route::get("/shop/modify/{id}",'catalogController@EditProduct');
+Route::get("/shop/rem/{id}","catalogController@removeProduct");
+Route::post('/shop/post','catalogController@PostAddProduct')->name('PostNewProduct');
+Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('PostAltProduct');
+
+//Route for buy/cart
+Route::get('/shop/cart/{id}','buyController@addtoCart')->name('addToCard');
+Route::get('/cart','buyController@showCart')->name('cart');
+Route::get('/cart/rem/{id}','buyController@remCart');
+Route::get('/cart/name/{product}','buyController@showProductName');
+
+Route::get('/administration',function () {return view('administration');});

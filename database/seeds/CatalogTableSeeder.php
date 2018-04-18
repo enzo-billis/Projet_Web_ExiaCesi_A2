@@ -13,14 +13,14 @@ class CatalogTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
 
-
-        DB::table('catalog')->insert([
-            'name' => $faker->domainWord,
-            'description' => $faker->text,
-            'image' => $faker->imageUrl(480,640),
-            'stock' => $faker->numberBetween(0,500),
-            'price' => $faker->randomFloat(2,1,100),
-            'category' => $faker->numberBetween(0,5),
-        ]);
+        for ($i = 0; $i < 200; $i++) {
+            DB::table('catalogs')->insert([
+                'name' => $faker->domainWord,
+                'description' => $faker->text,
+                'image' => $faker->imageUrl(480, 640),
+                'price' => $faker->randomFloat(2, 1, 100),
+                'category' => $faker->numberBetween(0, 5),
+            ]);
+        }
     }
 }
