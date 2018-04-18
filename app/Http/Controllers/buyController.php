@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use App\buy;
 use App\catalog;
 
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class buyController
@@ -23,6 +24,16 @@ class buyController
     function showCart() {
 
         return view('buy');
+    }
+
+    function addtoCart($id){
+        buy::create([
+          'quantity' => 1,
+          'user' => Auth::user()->id,
+          'product' => $id,
+          'status' => 0
+        ]);
+        return redirect()->back();
     }
 
     /**
