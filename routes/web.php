@@ -28,6 +28,7 @@ Route::get('/manif','ManifestationsController@allManif')->name('manifs');
 Route::post('/manif/{id}/register','InscriptionController@registration')->name('registerManif')->middleware('auth');
 Route::post("/manif/{id}/upload",'PictureController@savePic')->name('savePic')->middleware('auth');
 Route::post("/manif/new",'ManifestationsController@newManif')->name('newManif')->middleware('bde');
+Route::post("/manif/download",'PictureController@downloadZip')->name('downloadPack')->middleware('employee');
 
 //Route for ideas
 Route::get('/ideas/{id}','IdeaController@index')->name('idea');
@@ -41,9 +42,20 @@ Route::post('/ideas/new','IdeaController@newIdea')->name('newIdea')->middleware(
 Route::get("/picture/{id}",'PictureController@index')->name('picture');
 Route::post("/picture/{id}/like",'PictureController@like')->name('likePic')->middleware('auth');
 Route::post("/picture/{id}/comment",'PictureController@comment')->name('commentPic')->middleware('auth');
+Route::post("/deletePic",'PictureController@delete')->name('deletePic')->middleware('auth');
+Route::post("/deleteCom",'CommentController@delete')->name('deleteCom')->middleware('auth');
+
+//Route for notif
+Route::post('/notification/get','NotificationsController@get');
+Route::post('/notification/read','NotificationsController@read')->middleware('auth');
+
 //Route for produits
 Route::get('/shop','catalogController@showCatalog')->name('shopList');
 Route::get('/shop/add','catalogController@addProduct')->name('newProduct');
-Route::post('/shop/post','catalogController@PostAddProduct')->name('PostProduct');
-Route::get("/shop/modify/{name}",'catalogController@editProduct')->name('AltProduct');
-Route::get("/shop/rem/{name}","catalogController@removeProduct")->name("delProduct");
+Route::get("/shop/modify/{name}",'catalogController@EditProduct');
+Route::get("/shop/rem/{name}","catalogController@removeProduct");
+Route::post('/shop/post','catalogController@PostAddProduct')->name('PostNewProduct');
+Route::post("/shop/modify/post/",'catalogController@postEditProduct')->name('PostAltProduct');
+
+//Route for buy/cart
+Route::get('/cart','buyController@showCart')->name('cart');

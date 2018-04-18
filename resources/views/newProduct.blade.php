@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header">nouveau produits</div>
             <div class="card-body">
-                <form action="{{route('PostProduct')}}" method="post">
+                <form action="{{route('PostNewProduct')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <label for="name" id="lname" class="form-control">Name <input id="name" type="text" name="name"></label><br>
                     <label for="price" id="lprice" class="form-control">price<input id="price" type="number" name="price" min="0.01" max="999.99" step="0.01"></label><br>

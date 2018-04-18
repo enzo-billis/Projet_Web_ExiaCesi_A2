@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+
+/**
+ * HomeController is used to return the view 'home' only for connected user's (Thank's to the middleware in the construct function)
+ */
 
 class HomeController extends Controller
 {
@@ -11,8 +17,9 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    function __construct()
     {
+        //Middle auth allow the execution of these functions only for connected people
         $this->middleware('auth');
     }
 

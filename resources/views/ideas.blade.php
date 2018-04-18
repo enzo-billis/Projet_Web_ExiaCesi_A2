@@ -18,12 +18,14 @@
                 </ul>
             </div>
         @endif
-        @if(Auth::user()->rang!==1)
-                <div class="col-2" style="margin-bottom: 1em">
-                    <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#addIdea" >
-                        Proposer votre idée
-                    </button>
-                </div>
+            @if(isset(Auth::user()->rang))
+                @if(Auth::user()->rang!==1)
+                    <div class="col-2" style="margin-bottom: 1em">
+                        <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#addIdea" >
+                            Proposer votre idée
+                        </button>
+                    </div>
+                @endif
             @endif
         <div class="row justify-content-center">
             @foreach($ideas as $idea)

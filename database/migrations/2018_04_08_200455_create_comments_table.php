@@ -18,7 +18,8 @@ class CreateCommentsTable extends Migration
             $table->integer('id_pictures');
             $table->integer('id_users');
             $table->string('comment')->default("Dead Beef");
-            $table->date('date_comment');
+            $table->string('ban_reason')->nullable();
+            $table->integer('ban_user_id')->nullable();
             $table->timestamps();
         });
     }
