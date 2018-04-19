@@ -22,6 +22,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -39,13 +40,13 @@
                     <ul class="navbar-nav mr-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
                         @endguest
 
                     </ul>
@@ -54,15 +55,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('login') }}">{{ __('Connexion') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('register') }}">{{ __('Inscription') }}</a></li>
                         @else
 
                                 <notification></notification>
 
                             @if(Auth::user()->isRang(1))
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Administration BDE <span class="caret"></span>
                                     </a>
 
@@ -74,12 +75,12 @@
                                 </li>
                                 @endif
                                 @if(Auth::user()->isRang(2))
-                                        <p id="navbarDropdown" class="nav-link">
+                                        <p id="navbarDropdown" class="nav-link text-white">
                                             Administration CESI
                                         </p>
                                 @endif
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
                                 </a>
 
@@ -103,6 +104,11 @@
                 </div>
             </div>
         </nav>
+        <header>
+            <div class="flex-row">
+                <img class="" href="{{asset('logoBDE.png')}}" alt="logo">
+            </div>
+        </header>
 
         <main class="py-4">
             @yield('content'):
