@@ -117,7 +117,7 @@
                         var image = responses[i].image;
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
-                                "<div class='card'>" +
+                                "<div class='card shadow'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src="+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
@@ -135,7 +135,7 @@
 
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
-                                "<div class='card'>" +
+                                "<div class='card shadow'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src=/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
@@ -154,7 +154,7 @@
 
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
-                                "<div class='card'>" +
+                                "<div class='card shadow'>" +
                                 "<a href=/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src=/storage/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
@@ -172,7 +172,7 @@
                                 var image = responses[i].image;
                             containerE.innerHTML = containerE.innerHTML +
                                 "<div class='col-md-5 offset-1' id='1'>" +
-                                "<div class='card'>" +
+                                "<div class='card shadow'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
                                 "<img src=/"+image+"><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
