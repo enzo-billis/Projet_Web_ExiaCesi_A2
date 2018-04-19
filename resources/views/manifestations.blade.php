@@ -16,9 +16,9 @@
                 </select>
             </div>
             @if(isset(Auth::user()->id) && Auth::user()->rang==1)
-                <div class="col-2 offset-7">
+                <div class="col-2-md offset-7">
                     <button type="submit" class="btn btn-primary " data-toggle="modal" data-target="#addActivitie" >
-                        Ajouter une activité
+                        Ajouter
                     </button>
                 </div>
             @endif
@@ -119,7 +119,7 @@
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card shadow'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src="+image+"><br>"+
+                                "<img src="+image+" class='card-img-top'><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -137,7 +137,7 @@
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card shadow'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src=/"+image+"><br>"+
+                                "<img src="+image+" class='card-img-top'><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -156,7 +156,7 @@
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card shadow'>" +
                                 "<a href=/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src=/storage/"+image+"><br>"+
+                                "<img src="+image+" class='card-img-top'><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+
@@ -174,7 +174,7 @@
                                 "<div class='col-md-5 offset-1' id='1'>" +
                                 "<div class='card shadow'>" +
                                 "<a href=/manif/" + responses[i].id + ""+" ><div class='card-header' style='text-align: center'>"+
-                                "<img src=/"+image+"><br>"+
+                                "<img src="+image+" class='card-img-top'><br>"+
                                 responses[i].name+" | "+responses[i].date_add+"<br>"+
                                 "</div> </a>"+
                                 "<div class='card-body'>"+

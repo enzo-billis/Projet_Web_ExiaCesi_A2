@@ -13,13 +13,13 @@
             </div>
         @if(Auth::user() && Auth::user()->isRang(1))
             <div class="offset-8 col-4-md ">
-                <a href="{{route('newProduct')}}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter un produit</button></a>
+                <a href="{{route('newProduct')}}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter</button></a>
             </div>
         @endif
     </div>
     <br>
     <div class="row">
-        <div class="col-4-md" >
+        <div class="offset-1 col-4-md" >
             <label style="padding-top: 6px "  for="filterValue">Filtrer:</label>
             <select class="form-control " id="filterValue" name="filterValue" onchange="filter(this.value)">
                 <option value="0">Tout</option>
@@ -53,7 +53,7 @@
                     <div class="carousel-item active">
                         <div class="card-header" style="background-color: #cccccc">
                             <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
-                            <img src="{{$result[0]->image}}">
+                            <img class='card-img-top' src="{{$result[0]->image}}">
                         </div>
                         <div class="card-body" style="background-color: #d9d9d9">
                             <p>{{$result[0]->description}}</p>
@@ -66,7 +66,7 @@
                     <div class="carousel-item">
                         <div class="card-header" style="background-color: #cccccc">
                             <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
-                            <img src="{{$result[0]->image}}">
+                            <img class='card-img-top' src="{{$result[0]->image}}">
                         </div>
                         <div class="card-body" style="background-color: #d9d9d9">
                             <p>{{$result[0]->description}}</p>
