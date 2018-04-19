@@ -53,7 +53,7 @@
                     <div class="carousel-item active">
                         <div class="card-header" style="background-color: #cccccc">
                             <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
-                            <img class='card-img-top' src="{{$result[0]->image}}">
+                            <img style="max-width: 50%" class='card-img-top' src="{{$result[0]->image}}">
                         </div>
                         <div class="card-body" style="background-color: #d9d9d9">
                             <p>{{$result[0]->description}}</p>
@@ -66,7 +66,7 @@
                     <div class="carousel-item">
                         <div class="card-header" style="background-color: #cccccc">
                             <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
-                            <img class='card-img-top' src="{{$result[0]->image}}">
+                            <img style=" max-width: 50%" class='card-img-top' src="{{$result[0]->image}}">
                         </div>
                         <div class="card-body" style="background-color: #d9d9d9">
                             <p>{{$result[0]->description}}</p>
