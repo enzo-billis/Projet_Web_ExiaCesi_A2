@@ -152,16 +152,4 @@
             }
         }
     </script>
-<script>
-    $( function() {
-        let request = new XMLHttpRequest();
-        request.open("GET", "{{route('APICatalog')}}", false);
-        request.send(null);
-        let response = JSON.parse(request.responseText);
-
-        $( "#search" ).autocomplete({
-            source: response
-        });
-    } );
-</script>
 @endsection
