@@ -13,6 +13,7 @@ use App\buy;
 use App\Http\Requests\catalog;
 use Auth;
 
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class buyController
@@ -41,6 +42,16 @@ class buyController
             ]);
         }
         return redirect()->route('shopList');
+    }
+
+    function addtoCart($id){
+        buy::create([
+          'quantity' => 1,
+          'user' => Auth::user()->id,
+          'product' => $id,
+          'status' => 0
+        ]);
+        return redirect()->back();
     }
 
     /**
