@@ -156,8 +156,12 @@ class ManifestationsController extends Controller
 
     }
 
+    function APIIndex() {
+        return Manifestation::all();
+    }
+
     /**
-       * Create a new maniestation
+       * Create a new manifestation
        * @param $request a request containing name,description,picture,recurrence,date and price.
        */
     function newManif(Request $request)
