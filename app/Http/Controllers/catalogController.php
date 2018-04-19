@@ -135,9 +135,15 @@ class catalogController extends Controller
      */
     function showCatalog() {
         $buyObj = New buy();
-        $result=$buyObj->select('product',DB::raw('count(*) as total'))->where('status','=','1')->groupBy('product')->orderBy('quantity','desc')->take(3)->get();
-        dd($result);
-        return view('shop');
+        $catalogObj = New catalog();
+        $productsBest = new \ArrayObject();
+        $results=$buyObj->select('product',DB::raw('count(*) as total'))->where('status','=','1')->groupBy('product')->orderBy('total','desc')->take(3)->get();
+        foreach ($results as $result){
+            $i = $catalogObj->where('id','=',$result->product)->get();
+            $productsBest->append($i);
+        }
+//        dd($productsBest[2][0]->name);
+        return view('shop', compact('productsBest'));
     }
 
     /**

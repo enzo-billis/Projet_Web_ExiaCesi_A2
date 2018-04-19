@@ -29,6 +29,53 @@
     </div>
 
 
+    <div id="carouselExampleControls" class="carousel slide col-6-md" style="text-align: center" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            @foreach($productsBest as $result)
+                @if($loop->first)
+                    <div class="carousel-item active">
+                        <div class="card-header" style="background-color: #cccccc">
+                            <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
+                            <img src="{{$result[0]->image}}">
+                        </div>
+                        <div class="card-body" style="background-color: #d9d9d9">
+                            <p>{{$result[0]->description}}</p>
+                            <p>{{$result[0]->price}} €</p>
+                            <a href='/shop/cart/{{$result[0]->id}}'><button type="button" class="btn btn-success"> <i class="fa fa-shopping-basket" aria-hidden="true"></i> Ajouter au panier</button></a>
+                        </div>
+                        <div class="card-footer" style="background-color: #d9d9d9"></div>
+                    </div>
+                @else
+                    <div class="carousel-item">
+                        <div class="card-header" style="background-color: #cccccc">
+                            <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
+                            <img src="{{$result[0]->image}}">
+                        </div>
+                        <div class="card-body" style="background-color: #d9d9d9">
+                            <p>{{$result[0]->description}}</p>
+                            <p>{{$result[0]->price}} €</p>
+                            <a href='/shop/cart/{{$result[0]->id}}'><button type="button" class="btn btn-success"> <i class="fa fa-shopping-basket" aria-hidden="true"></i> Ajouter au panier</button></a>
+                        </div>
+                        <div class="card-footer" style="background-color: #d9d9d9"></div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
 <div id="container" class="d-flex flex-wrap container" style="margin-top: 2em">
 
     </div>
