@@ -30,9 +30,9 @@
         <div class="row justify-content-center">
             @foreach($ideas as $idea)
             <div class="col-md-4">
-                <div class="card">
-                    <a href={{route('idea',$idea->id)}}>
-                    <div class="card-header" style="text-align: center">
+                <div class="card shadow">
+                    <a href={{route('idea',$idea->id)}} >
+                        <div class="card-header" style="text-align: center; color: #1d2124">
                         {{ $idea->name }}<br>
                     </div></a>
                     <div class="card-body">

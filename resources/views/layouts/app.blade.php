@@ -28,7 +28,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel" style="background-color: #C2242A">
+            <img class="" src="/img/BDE.png" alt="Logo BDE Cesi Rouen" width="100%" style="max-width: 60px">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ "Bureau des étudiants" }}
@@ -42,13 +43,13 @@
                     <ul class="navbar-nav mr-auto ">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('ideas') }}">{{ __('Idées') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('shopList') }}">{{ __('Magasin') }}</a></li>
                         @endguest
 
                     </ul>
@@ -57,15 +58,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('login') }}">{{ __('Connexion') }}</a></li>
+                            <li><a class="nav-link text-white" href="{{ route('register') }}">{{ __('Inscription') }}</a></li>
                         @else
 
                                 <notification></notification>
 
                             @if(Auth::user()->isRang(1))
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Administration BDE <span class="caret"></span>
                                     </a>
 
@@ -77,12 +78,12 @@
                                 </li>
                                 @endif
                                 @if(Auth::user()->isRang(2))
-                                        <p id="navbarDropdown" class="nav-link">
+                                        <p id="navbarDropdown" class="nav-link text-white">
                                             Administration CESI
                                         </p>
                                 @endif
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
                                 </a>
 
