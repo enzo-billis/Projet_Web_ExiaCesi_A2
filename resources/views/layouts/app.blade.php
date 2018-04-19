@@ -11,11 +11,14 @@
     <title>BDE - Exia Cesi</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('scripts')
+    {{--<script src="{{ asset('js/app.js') }}" defer></script>--}}
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,7 +36,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto ">
                         <!-- Authentication Links -->
                         @guest
                             <li><a class="nav-link" href="{{ route('manifs') }}">{{ __('Activités') }}</a></li>
@@ -105,5 +108,7 @@
             @yield('content'):
         </main>
     </div>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
 </body>
 </html>
