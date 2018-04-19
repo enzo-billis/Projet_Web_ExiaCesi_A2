@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use App\activitie;
 use App\Idea;
-use App\Manifestation;
 use App\inscription;
 use App\Notifications\IdeaSelected;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\PictureController;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Image;
 
@@ -156,10 +152,22 @@ class ManifestationsController extends Controller
 
     }
 
+    /**
+     * The public API for show all of manif table
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     function APIIndex() {
-        return Manifestation::all();
+        return activitie::all();
     }
 
+    /**
+     * The public API for show specific event of manif table
+     * @param $id
+     * @return mixed|static
+     */
+    function APIShow($id) {
+        return activitie::find($id);
+    }
     /**
        * Create a new manifestation
        * @param $request a request containing name,description,picture,recurrence,date and price.
