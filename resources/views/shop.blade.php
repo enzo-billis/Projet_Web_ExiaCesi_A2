@@ -25,6 +25,7 @@
         </div>
         <div class="offset-2 col-3-md">
             <label style="padding-top: 6px ">Rechercher :</label><input class="form-control" type="search">
+            <label style="padding-top: 6px ">Rechercher :</label><input id="search" class="form-control" type="search">
         </div>
     </div>
 
@@ -140,4 +141,16 @@
             }
         }
     </script>
+<script>
+    $( function() {
+        let request = new XMLHttpRequest();
+        request.open("GET", "{{route('APICatalog')}}", false);
+        request.send(null);
+        let response = JSON.parse(request.responseText);
+
+        $( "#search" ).autocomplete({
+            source: response
+        });
+    } );
+</script>
 @endsection
