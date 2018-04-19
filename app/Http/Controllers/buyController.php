@@ -68,4 +68,14 @@ class buyController
     function showProductName($product) {
         DB::table('buy')->join('catalogs','buy.'.$product,'=','catalogs.id')->select('catalogs.name')->get();
     }
+
+    function validate(){
+        $buyObj = New buy();
+        $products = $buyObj->where('user','=',Auth::user()->id)->where('status','=',0)->get();
+        foreach ($products as $product){
+            $product->status = 1;
+            $product->save();
+        }
+        return redirect()->back()->with('success', ['Bravo ! ']);
+    }
 }
