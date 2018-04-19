@@ -11,9 +11,10 @@ namespace App\Http\Controllers;
 
 use App\buy;
 use App\catalog;
-
+use App\Notifications\BuyValidate;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class buyController
 {
@@ -72,10 +73,27 @@ class buyController
     function validate(){
         $buyObj = New buy();
         $products = $buyObj->where('user','=',Auth::user()->id)->where('status','=',0)->get();
-        foreach ($products as $product){
-            $product->status = 1;
-            $product->save();
+//        dd($products);
+        if(!$products->isEmpty()){
+            foreach ($products as $product){
+                $product->status = 1;
+                $product->save();
+            }
+            Mail::send('mails.buyValidate', ['client' => Auth::user()->name], function ($message)
+            {
+
+                $message->from('bde-rouen@viacesi.fr', 'BDE Cesi Rouen');
+
+                $message->to('enzo.billis@viacesi.fr');
+
+            });
+            return redirect()->back()->with('success', ['Bravo ! ']);
         }
-        return redirect()->back()->with('success', ['Bravo ! ']);
+        else{
+            return redirect()->back()->withErrors('Panier vide.');
+        }
+
+
+
     }
 }
