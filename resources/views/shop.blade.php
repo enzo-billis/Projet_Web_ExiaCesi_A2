@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('scripts')
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="{{asset('js/searchBar.js')}}"></script>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
@@ -24,7 +30,13 @@
 
         </div>
         <div class="offset-2 col-3-md">
-            <label style="padding-top: 6px ">Rechercher :</label><input class="form-control" type="search">
+            <nav class="navbar navbar-light bg-light mb-3">
+
+                    <label style="padding-top: 6px ">Rechercher :</label>
+                    <input onchange="actionForm(this.value)" class="form-control mr-sm-2" id="search" type="search" placeholder="" aria-label="Search">
+
+            </nav>
+           {{--<input id="search" class="form-control" type="search">--}}
         </div>
     </div>
 
