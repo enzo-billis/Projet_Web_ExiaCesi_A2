@@ -80,8 +80,8 @@
                         "</div>" +
                         "<div class='card-body' style='margin-top: 1em'>" +
                         "<div style='text-align : center'>" +
-                        "<a href="+ deleteLink +"><button type=\"button\" class=\"btn btn-primary\"> <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <i class=\"fa fa-trash\" aria-hidden=\"true\"></i> Modifier</button></a>" + " "+
-                        "<a href="+ altLink +"><button type=\"button\" class=\"btn btn-primary\">Supprimer</button></a>" +
+                        "<a href="+ deleteLink +"><button type=\"button\" class=\"btn btn-primary\"> <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> Modifier</button></a>" + " "+
+                        "<a href="+ altLink +"><button type=\"button\" class=\"btn btn-primary\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i> Supprimer</button></a>" +
                         "</div>" +
                         "<p>"+response[i].description+"</p>" +
                         "<p>"+response[i].price+ " €</p>" +

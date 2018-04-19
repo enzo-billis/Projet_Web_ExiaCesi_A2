@@ -11,4 +11,8 @@ class buy extends Model
     protected $fillable = [
         'quantity', 'user', 'product', 'status'
     ];
+
+    public function catalog(){
+        return $this->belongsTo('App\catalog','product');
+    }
 }
