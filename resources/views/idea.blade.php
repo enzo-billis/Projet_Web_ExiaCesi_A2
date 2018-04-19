@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="text-align: center">
-                        <img src="{{$idea->image}}" ><br>
+                        <img src="{{$idea->image}}" width="100%" height="auto" style="max-width: 400px"><br>
                         {{ $idea->name }} | Par : {{ $firstname }} {{ $lastname }}<br>
                         Pour : {{ $upVotes }} | Contre : {{ $downVotes }}<br><br>
                         <div>

@@ -10,11 +10,9 @@ namespace App\Http\Controllers;
 
 
 use App\buy;
-use App\catalog;
-use App\Notifications\BuyValidate;
+use App\Http\Requests\catalog;
 use Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class buyController
 {
@@ -30,26 +28,13 @@ class buyController
     }
 
     function addtoCart($id){
-        $user = Auth::user();
-        $buyObj = New buy();
-        $commands = $buyObj->where('user',"=",$user->id)->where("status","=", 0)->where('product','=',$id)->get();
-//        dd($commands);
-        if ($commands->isEmpty()){
-            buy::create([
-                'quantity' => 1,
-                'user' => Auth::user()->id,
-                'product' => $id,
-                'status' => 0
-            ]);
-            return redirect()->back();
-        }
-        else{
-//            dd( $commands);
-           $quantity = $commands->first()->quantity;
-           $commands->first()->quantity = $quantity+1;
-           $commands->first()->save();
-            return redirect()->back();
-        }
+        buy::create([
+          'quantity' => 1,
+          'user' => Auth::user()->id,
+          'product' => $id,
+          'status' => 0
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -61,39 +46,18 @@ class buyController
         $command = $buy->where('status','=',1);
         return response()->json($command);
     }
+
+    /**
+     * API used for show historic
+     * @return \Illuminate\Http\JsonResponse
+     */
     function APIshowHistoric() {
         $buy = new buy();
         $historic = $buy->all();//where('status','=',2);
         return response()->json($historic);
     }
     function showProductName($product) {
+
         DB::table('buy')->join('catalogs','buy.'.$product,'=','catalogs.id')->select('catalogs.name')->get();
-    }
-
-    function validate(){
-        $buyObj = New buy();
-        $products = $buyObj->where('user','=',Auth::user()->id)->where('status','=',0)->get();
-//        dd($products);
-        if(!$products->isEmpty()){
-            foreach ($products as $product){
-                $product->status = 1;
-                $product->save();
-            }
-            Mail::send('mails.buyValidate', ['client' => Auth::user()->name], function ($message)
-            {
-
-                $message->from('bde-rouen@viacesi.fr', 'BDE Cesi Rouen');
-
-                $message->to('enzo.billis@viacesi.fr');
-
-            });
-            return redirect()->back()->with('success', ['Bravo ! ']);
-        }
-        else{
-            return redirect()->back()->withErrors('Panier vide.');
-        }
-
-
-
     }
 }

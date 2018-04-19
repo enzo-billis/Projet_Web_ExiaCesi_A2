@@ -1,11 +1,6 @@
 @extends('layouts.app')
-@section('scripts')
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="{{asset('js/searchBar.js')}}"></script>
-@endsection
 @section('content')
+    <script src="{{asset('js/jquery-ui-1.12.1.custom/jquery-ui')}}"></script>
 <div class="container">
     <div class="row">
             <div class=" col-4-md">
@@ -13,30 +8,23 @@
             </div>
         @if(Auth::user() && Auth::user()->isRang(1))
             <div class="offset-8 col-4-md ">
-                <a href="{{route('newProduct')}}"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter un produit</button></a>
+                <a href="{{route('newProduct')}}" ><button type="button" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter un produit</button></a>
             </div>
         @endif
     </div>
     <br>
     <div class="row">
         <div class="col-4-md" >
-            <label style="padding-top: 6px "  for="filterValue">Filtrer:</label>
-            <select class="form-control " id="filterValue" name="filterValue" onchange="filter(this.value)">
+            <label style="padding-top: 6px "  for="filterValue">Filtrer:</label><select class="form-control " id="filterValue" name="filterValue" onchange="filter(this.value)">
                 <option value="0">Tout</option>
                 <option value="1">Vêtements</option>
                 <option value="2">Goodies</option>
-                <option value="3">Divers</option>
+                <option value="3">Divers</option>s
             </select>
 
         </div>
         <div class="offset-2 col-3-md">
-            <nav class="navbar navbar-light bg-light mb-3">
-
-                    <label style="padding-top: 6px ">Rechercher :</label>
-                    <input onchange="actionForm(this.value)" class="form-control mr-sm-2" id="search" type="search" placeholder="" aria-label="Search">
-
-            </nav>
-           {{--<input id="search" class="form-control" type="search">--}}
+            <label style="padding-top: 6px ">Rechercher :</label><input id="search" class="form-control" type="search">
         </div>
     </div>
 
@@ -53,7 +41,7 @@
                     <div class="carousel-item active">
                         <div class="card-header" style="background-color: #cccccc">
                             <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
-                            <img src="{{$result[0]->image}}">
+                            <img src="{{$result[0]->image}}" height="auto" width="100%" style="max-width: 480px">
                         </div>
                         <div class="card-body" style="background-color: #d9d9d9">
                             <p>{{$result[0]->description}}</p>
@@ -108,7 +96,7 @@
                 let deleteLink = "/shop/modify/"+response[i].id;
                 let altLink = "/shop/rem/"+response[i].id;
                 containterE.innerHTML = containterE.innerHTML +
-                    "<div class='col-md-4 card' style='padding : 0;'>" +
+                    "<div class='col-md-4 card' style='padding : 0; margin:0px'>" +
                     "<div class='card-header' style='text-align: center;'>" +
                     "<h1>"+ response[i].name +"</h1>" +
                     "<img src='"+ image +"' style='max-width: 100%;' >" +
@@ -152,4 +140,16 @@
             }
         }
     </script>
+<script>
+    $( function() {
+        let request = new XMLHttpRequest();
+        request.open("GET", "{{route('APICatalog')}}", false);
+        request.send(null);
+        let response = JSON.parse(request.responseText);
+
+        $( "#search" ).autocomplete({
+            source: response
+        });
+    } );
+</script>
 @endsection
