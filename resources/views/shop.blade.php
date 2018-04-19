@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    <script src="{{asset('js/jquery-ui-1.12.1.custom/jquery-ui')}}"></script>
 <div class="container">
-    <div class="row">
+    <div class="row" style="background-color:#c2242a">
             <div class=" col-4-md">
-                <a href="{{route('cart')}}"><button type="button" class="btn btn-info"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Mon panier</button></a>
+                <a href="{{route('cart')}}"><button type="button" class="btn btn-info" style="background-color: #c2242a;border-color:#c2242a"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Mon panier</button></a>
             </div>
         @if(Auth::user() && Auth::user()->isRang(1))
             <div class="offset-8 col-4-md ">
@@ -14,17 +15,16 @@
     <br>
     <div class="row">
         <div class="col-4-md" >
-            <label style="padding-top: 6px "  for="filterValue">Filtrer:</label>
-            <select class="form-control " id="filterValue" name="filterValue" onchange="filter(this.value)">
+            <label style="padding-top: 6px "  for="filterValue">Filtrer:</label><select class="form-control " id="filterValue" name="filterValue" onchange="filter(this.value)">
                 <option value="0">Tout</option>
                 <option value="1">Vêtements</option>
                 <option value="2">Goodies</option>
-                <option value="3">Divers</option>
+                <option value="3">Divers</option>s
             </select>
 
         </div>
         <div class="offset-2 col-3-md">
-            <label style="padding-top: 6px ">Rechercher :</label><input class="form-control" type="search">
+            <label style="padding-top: 6px ">Rechercher :</label><input class="ui-autocomplete-input" type="search" autocomplete="off">
         </div>
     </div>
 
@@ -41,7 +41,7 @@
                     <div class="carousel-item active">
                         <div class="card-header" style="background-color: #cccccc">
                             <h1>Top {{$loop->iteration}} des ventes : {{$result[0]->name}}</h1>
-                            <img src="{{$result[0]->image}}">
+                            <img src="{{$result[0]->image}}" height="auto" width="100%" style="max-width: 480px">
                         </div>
                         <div class="card-body" style="background-color: #d9d9d9">
                             <p>{{$result[0]->description}}</p>

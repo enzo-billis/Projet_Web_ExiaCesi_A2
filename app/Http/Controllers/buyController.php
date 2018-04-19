@@ -12,8 +12,6 @@ namespace App\Http\Controllers;
 use App\buy;
 use App\Http\Requests\catalog;
 use Auth;
-
-use Auth;
 use Illuminate\Support\Facades\DB;
 
 class buyController
@@ -27,21 +25,6 @@ class buyController
         $buyObj = New buy();
         $commands = $buyObj->where('user',"=",$user->id)->where("status","=", 0)->get();
         return view('buy', compact('commands'));
-    }
-
-    function addtoCart($id){
-        $product = $id;
-        if (buy::findOrFail($product)) {
-            DB::table('buys')->where('product','=',$product)->increment('quantity',1);
-        } else {
-            buy::create([
-                'quantity' => 1,
-                'user' => $user->id,
-                'status' => 0,
-                'product' => $id
-            ]);
-        }
-        return redirect()->route('shopList');
     }
 
     function addtoCart($id){
@@ -74,6 +57,7 @@ class buyController
         return response()->json($historic);
     }
     function showProductName($product) {
+
         DB::table('buy')->join('catalogs','buy.'.$product,'=','catalogs.id')->select('catalogs.name')->get();
     }
 }

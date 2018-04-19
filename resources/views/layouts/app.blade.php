@@ -22,9 +22,9 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="background-color:#8a1002 ">
+            <div class="container ">
+                <a class="navbar-brand " href="{{ url('/') }} " style="color:#fff;">
                     {{ "Bureau des étudiants" }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
