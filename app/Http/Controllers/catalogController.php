@@ -13,8 +13,6 @@ use App\buy;
 use App\catalog;
 use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Storage;
 use Image;
 
 class catalogController extends Controller
@@ -162,7 +160,7 @@ class catalogController extends Controller
      * @param $name
      * @return \Illuminate\Http\JsonResponse
      */
-    function APIShowByName($name) {
+    function APIByName($name) {
         $catalogs = new catalog();
         $shop = $catalogs->where('name','=',$name);
         return response()->json($shop);
@@ -179,5 +177,21 @@ class catalogController extends Controller
         $shop = $catalog->all();
 
         return response()->json($shop);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    function APIIndex() {
+        return catalog::all();
+    }
+    /**
+     * The public API for show specific product of catalog table
+     * @param $id
+     * @return mixed|static
+     *
+     */
+    function APIShow($id) {
+        return catalog::find($id);
     }
 }
