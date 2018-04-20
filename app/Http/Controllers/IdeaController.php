@@ -159,4 +159,14 @@ class IdeaController extends Controller
         return view('ideas', compact('ideas'));
 
     }
+    function APIAllIdeas() {
+        $idea = New Idea();
+        $allIdea = $idea->all();
+        return response()->json($allIdea);
+    }
+    function APIIdea($id) {
+        $idea = new Idea();
+        $thisIdea = $idea->where('id','=',$id);
+        return response()->json($thisIdea);
+    }
 }

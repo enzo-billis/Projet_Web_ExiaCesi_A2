@@ -61,4 +61,10 @@ class InscriptionController extends Controller
             return false;
         }
     }
+    function APIIndex() {
+        return inscription::all();
+    }
+    function APIShow($id) {
+        return inscription::find($id);
+    }
 }
