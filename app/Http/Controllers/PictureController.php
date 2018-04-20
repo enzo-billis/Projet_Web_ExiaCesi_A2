@@ -145,7 +145,7 @@ class PictureController extends Controller
         $filename = time() . '.' . $image->getClientOriginalExtension();
 
         $path = "storage/manifestationPics/" . $filename;
-        $pathToDb = "manifestationPics/" . $filename;
+        $pathToDb = "/storage/manifestationPics/" . $filename;
 
         //! We resize image and save it
         Image::make($image->getRealPath())->fit(640, 480)->save($path);
