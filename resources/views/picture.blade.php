@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="text-align: center">
-                        <img src="/storage/{{$picture->picture}}"><br>
+                        <img src="{{$picture->picture}}"><br>
                         <i class="fa fa-flag" aria-hidden="true"></i>
                         [{{$picture->activite->name}}]<br>
                         Par : {{ $user->firstname }} {{ $user->lastname }} | {{$picture->date_image}}<br>
